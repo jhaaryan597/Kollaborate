@@ -4,67 +4,76 @@ struct KollaborateCell: View {
     let kollaborate: Kollaborate
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 12) {
+            // User Info
             HStack(alignment: .top, spacing: 12) {
                 CircularProfileImageView(user: kollaborate.user, size: .small)
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack {
-                        Text(kollaborate.user?.username ?? "")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                        
-                        Spacer()
-                        
-                        Text(kollaborate.timestamp.timestampString())
-                            .font(.caption)
-                            .foregroundColor(Color(.systemGray3))
-                        
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .foregroundColor(Color(.darkGray))
-                        }
-                    }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(kollaborate.user?.username ?? "")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(Color("PrimaryText"))
                     
-                    Text(kollaborate.caption)
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                    
-                    HStack(spacing: 16) {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "heart")
-                        }
-                        
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "bubble.right")
-                        }
-                        
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "arrow.rectanglepath")
-                        }
-                        
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "paperplane")
-                        }
-                    }
-                    .foregroundColor(.black)
-                    .padding(.vertical, 8)
+                    Text(kollaborate.timestamp.timestampString())
+                        .font(.system(size: 12))
+                        .foregroundColor(Color("SecondaryText"))
+                }
+                
+                Spacer()
+                
+                Button {
+                    // More options
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(Color("SecondaryText"))
                 }
             }
             
-            Divider()
+            // Caption
+            Text(kollaborate.caption)
+                .font(.system(size: 14))
+                .foregroundColor(Color("PrimaryText"))
+                .multilineTextAlignment(.leading)
+            
+            // Action Buttons
+            HStack(spacing: 24) {
+                Button {
+                    // Like
+                } label: {
+                    Image(systemName: "heart")
+                        .foregroundColor(Color("SecondaryText"))
+                }
+                
+                Button {
+                    // Comment
+                } label: {
+                    Image(systemName: "bubble.right")
+                        .foregroundColor(Color("SecondaryText"))
+                }
+                
+                Button {
+                    // Repost
+                } label: {
+                    Image(systemName: "arrow.rectanglepath")
+                        .foregroundColor(Color("SecondaryText"))
+                }
+                
+                Button {
+                    // Share
+                } label: {
+                    Image(systemName: "paperplane")
+                        .foregroundColor(Color("SecondaryText"))
+                }
+            }
+            .padding(.top, 8)
         }
         .padding()
+        .background(Color("SurfaceHighlight"))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+        )
     }
 }
 

@@ -6,34 +6,58 @@ struct ExploreView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVStack {
-                    ForEach(viewModel.users) { user in
-                        NavigationLink(value: user) {
-                            VStack {
-                                UserCell(user: user)
-                                
-                                Divider()
-                            }
-                            .padding(.vertical, 4)
+            ZStack {
+                // Background
+                Color("PrimaryBackground").ignoresSafeArea()
+                
+                // Main Content
+                ScrollView {
+                    VStack {
+                        // Header
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text("Discover")
+                                .font(.system(size: 32, weight: .bold))
+                                .foregroundColor(Color("PrimaryText"))
+                            
+                            Text("Find new people and projects to collaborate with.")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(Color("SecondaryText"))
                         }
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        // Search Bar
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(Color("SecondaryText"))
+                            TextField("Search for users or projects", text: $searchText)
+                                .font(.system(size: 14))
+                                .foregroundColor(Color("PrimaryText"))
+                        }
+                        .padding()
+                        .background(Color("SurfaceHighlight"))
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                        
+                        // User List
+                        LazyVStack {
+                            ForEach(viewModel.users) { user in
+                                NavigationLink(value: user) {
+                                    UserCell(user: user)
+                                        .padding(.vertical, 8)
+                                }
+                            }
+                        }
+                        .padding(.top)
                     }
                 }
             }
             .navigationDestination(for: User.self, destination: { user in
                 ProfileView(user: user)
             })
-            .navigationTitle("Search")
-            .searchable(text: $searchText, prompt: "Search")
-            .background(Color("PrimaryBackground"))
-            .onAppear {
-                UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "PrimaryText")!]
-                UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor(named: "SurfaceHighlight")
-                UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor(named: "PrimaryText")
-                UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = UIColor(named: "PrimaryText")
-            }
+            .navigationTitle("Explore")
+            .navigationBarHidden(true)
         }
-        .background(Color("PrimaryBackground"))
         .environment(\.colorScheme, .dark)
     }
 }

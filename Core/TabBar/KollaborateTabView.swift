@@ -2,7 +2,6 @@ import SwiftUI
 
 struct KollaborateTabView: View {
     @State private var selectedTab = 0
-    @State private var showCreateThreadView = false
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -52,14 +51,6 @@ struct KollaborateTabView: View {
                 .onAppear { selectedTab = 5 }
                 .tag(5)
         }
-        .onChange(of: selectedTab, perform: { newValue in
-            showCreateThreadView = selectedTab == 3
-        })
-        .sheet(isPresented: $showCreateThreadView, onDismiss: {
-            selectedTab = 0
-        }, content: {
-            CreateThreadView()
-        })
         .tint(Color("AccentColor"))
         .onAppear {
             UITabBar.appearance().unselectedItemTintColor = UIColor(named: "SecondaryText")

@@ -1,41 +1,46 @@
-//
-//  UserCell.swift
-//  Kollaborate
-//
-//  Created by Aryan Jha on 9/3/23.
-//
-
 import SwiftUI
 
 struct UserCell: View {
     let user: User
     
     var body: some View {
-        HStack {
-            CircularProfileImageView(user: user, size: .small)
+        HStack(spacing: 12) {
+            // Profile Image
+            CircularProfileImageView(user: user, size: .medium)
             
-            VStack(alignment: .leading, spacing: 2) {
+            // User Info
+            VStack(alignment: .leading, spacing: 4) {
                 Text(user.username)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(Color("PrimaryText"))
                 
                 Text(user.fullname)
-                    .font(.system(size: 14, weight: .regular))
+                    .font(.system(size: 14))
                     .foregroundColor(Color("SecondaryText"))
             }
-            .font(.footnote)
             
             Spacer()
             
-            Text("Follow")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(Color("PrimaryText"))
-                .frame(width: 100, height: 32)
-                .background(Color("AccentColor"))
-                .cornerRadius(10)
+            // Follow Button
+            Button(action: {
+                // Follow user
+            }) {
+                Text("Follow")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 8)
+                    .background(Color("AccentColor"))
+                    .cornerRadius(8)
+            }
         }
-        .padding(.horizontal)
+        .padding()
+        .background(Color("SurfaceHighlight"))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+        )
     }
 }
 

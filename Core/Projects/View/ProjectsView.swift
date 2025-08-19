@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct ChannelsView: View {
-    @StateObject var viewModel = ChannelsViewModel()
-    @State private var showCreateChannel = false
-
+struct ProjectsView: View {
+    @StateObject var viewModel = ProjectsViewModel()
+    @State private var showCreateProject = false
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
@@ -15,21 +15,21 @@ struct ChannelsView: View {
                     VStack {
                         // Header
                         VStack(alignment: .leading, spacing: 16) {
-                            Text("Channels")
+                            Text("Projects")
                                 .font(.system(size: 32, weight: .bold))
                                 .foregroundColor(Color("PrimaryText"))
                             
-                            Text("Join the conversation and collaborate with others.")
+                            Text("Collaborate with others on your projects.")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color("SecondaryText"))
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        // Channel List
+                        // Project List
                         LazyVStack(spacing: 16) {
-                            ForEach(viewModel.channels) { channel in
-                                ChannelCell(channel: channel)
+                            ForEach(viewModel.projects) { project in
+                                ProjectCell(project: project)
                             }
                         }
                         .padding(.horizontal)
@@ -38,7 +38,7 @@ struct ChannelsView: View {
                 
                 // Floating Action Button
                 Button(action: {
-                    showCreateChannel.toggle()
+                    showCreateProject.toggle()
                 }) {
                     Image(systemName: "plus")
                         .font(.title.weight(.semibold))
@@ -49,51 +49,19 @@ struct ChannelsView: View {
                         .shadow(radius: 4, x: 0, y: 4)
                 }
                 .padding()
-                .sheet(isPresented: $showCreateChannel) {
-                    CreateChannelView()
+                .sheet(isPresented: $showCreateProject) {
+                    CreateProjectView()
                 }
             }
-            .navigationTitle("Channels")
+            .navigationTitle("Projects")
             .navigationBarHidden(true)
         }
         .environment(\.colorScheme, .dark)
     }
 }
 
-struct ChannelsView_Previews: PreviewProvider {
+struct ProjectsView_Previews: PreviewProvider {
     static var previews: some View {
-        ChannelsView()
-    }
-}
-
-struct ChannelCell: View {
-    let channel: Channel
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text(channel.name)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(Color("PrimaryText"))
-                
-                if channel.isPrivate {
-                    Image(systemName: "lock.fill")
-                        .foregroundColor(Color("SecondaryText"))
-                }
-                
-                Spacer()
-            }
-            
-            Text("This is a sample channel description.")
-                .font(.system(size: 14))
-                .foregroundColor(Color("SecondaryText"))
-        }
-        .padding()
-        .background(Color("SurfaceHighlight"))
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-        )
+        ProjectsView()
     }
 }

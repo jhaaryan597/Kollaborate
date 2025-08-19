@@ -26,49 +26,32 @@ class AuthService: ObservableObject {
     }
     
     @MainActor
-    func login(withEmail email: String, password: String) async throws {
+    func login(withEmail email: String, password: String) async -> Result<Void, Error> {
         do {
             try await supabase.auth.signIn(email: email, password: password)
-            // On successful login, fetch the user profile
             await loadUserData()
+            return .success(())
         } catch {
-            print("DEBUG: Failed to log in with error \(error.localizedDescription)")
-            throw error
+            return .failure(error)
         }
-    }
-    
-    private struct EncodableUser: Encodable {
-        let id: String
-        let fullname: String
-        let email: String
-        let username: String
-        let organization_id: String?
-        let role: String?
     }
 
     @MainActor
-    func createUser(withEmail email: String, password: String, fullname: String, username: String, organizationId: String, role: UserRole) async throws {
+    func createUser(withEmail email: String, password: String, fullname: String, username: String, organizationId: String, role: UserRole) async -> Result<Void, Error> {
         do {
             let result = try await supabase.auth.signUp(email: email, password: password)
             
             let user = User(id: result.user.id.uuidString, fullname: fullname, email: email, username: username, organizationId: organizationId, role: role)
-            let encodableUser = EncodableUser(
-                id: user.id,
-                fullname: user.fullname,
-                email: user.email,
-                username: user.username,
-                organization_id: user.organizationId,
-                role: user.role?.rawValue
-            )
             
             try await supabase.database
                 .from("users")
-                .insert(encodableUser)
+                .insert(user)
                 .execute()
             
             await loadUserData()
+            return .success(())
         } catch {
-            throw error
+            return .failure(error)
         }
     }
     

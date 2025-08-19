@@ -12,10 +12,19 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     
     @MainActor
-    func login() async throws {
-        try await AuthService.shared.login(
+    func login() async {
+        let result = await AuthService.shared.login(
             withEmail: email,
             password: password
         )
+        
+        switch result {
+        case .success:
+            // Handle successful login
+            break
+        case .failure(let error):
+            // Handle error
+            print("DEBUG: Failed to log in with error \(error.localizedDescription)")
+        }
     }
 }

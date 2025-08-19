@@ -10,26 +10,55 @@ struct CurrentUserProfileView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators: false) {
-                // bio and stats
-                VStack(spacing: 20) {
-                        ProfileHeaderView(user: currentUser)
-                    
-                    Button {
-                        showEditProfile.toggle()
-                    } label: {
-                        Text("Edit Profile")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color("PrimaryText"))
-                            .frame(width: 352, height: 32)
-                            .background(Color("SurfaceHighlight"))
-                            .cornerRadius(8)
-                    }
-                    
-                    // user content list view
-                    if let user = currentUser {
-                        UserContentListView(user: user)
+            ZStack(alignment: .top) {
+                // Background
+                Color("PrimaryBackground").ignoresSafeArea()
+                
+                // Main Content
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 20) {
+                        // Header
+                        VStack {
+                            // Cover Photo
+                            Rectangle()
+                                .fill(Color("SurfaceHighlight"))
+                                .frame(height: 200)
+                            
+                            // Profile Image
+                            CircularProfileImageView(user: currentUser, size: .large)
+                                .offset(y: -60)
+                                .padding(.bottom, -60)
+                            
+                            // User Info
+                            VStack(spacing: 8) {
+                                Text(currentUser?.fullname ?? "")
+                                    .font(.system(size: 24, weight: .bold))
+                                    .foregroundColor(Color("PrimaryText"))
+                                
+                                Text("@\(currentUser?.username ?? "")")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(Color("SecondaryText"))
+                            }
+                            
+                            // Edit Profile Button
+                            Button {
+                                showEditProfile.toggle()
+                            } label: {
+                                Text("Edit Profile")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 8)
+                                    .background(Color("AccentColor"))
+                                    .cornerRadius(8)
+                            }
+                            .padding(.top)
+                        }
+                        
+                        // User Content
+                        if let user = currentUser {
+                            UserContentListView(user: user)
+                        }
                     }
                 }
             }
@@ -48,8 +77,8 @@ struct CurrentUserProfileView: View {
                     }
                 }
             }
-            .padding(.horizontal)
-            .background(Color("PrimaryBackground"))
+            .navigationTitle("Profile")
+            .navigationBarHidden(true)
         }
         .environment(\.colorScheme, .dark)
     }

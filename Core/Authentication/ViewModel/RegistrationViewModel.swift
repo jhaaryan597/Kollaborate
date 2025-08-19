@@ -8,8 +8,8 @@ class RegistrationViewModel: ObservableObject {
     @Published var organizationId = ""
     
     @MainActor
-    func createUser() async throws {
-        try await AuthService.shared.createUser(
+    func createUser() async {
+        let result = await AuthService.shared.createUser(
             withEmail: email,
             password: password,
             fullname: fullname,
@@ -17,5 +17,14 @@ class RegistrationViewModel: ObservableObject {
             organizationId: organizationId,
             role: .employee
         )
+        
+        switch result {
+        case .success:
+            // Handle successful registration
+            break
+        case .failure(let error):
+            // Handle error
+            print("DEBUG: Failed to create user with error \(error.localizedDescription)")
+        }
     }
 }
