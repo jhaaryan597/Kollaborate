@@ -14,7 +14,7 @@ class CreateThreadViewModel: ObservableObject {
             attachmentURL = try await DocumentUploader.shared.uploadDocument(from: selectedURL)
         }
         
-        let kollaborate = Kollaborate(id: NSUUID().uuidString, ownerUid: uid, caption: caption, timestamp: Date(), likes: 0, attachmentURL: attachmentURL, type: type)
+        let kollaborate = Kollaborate(id: NSUUID().uuidString, ownerUid: uid, caption: caption, timestamp: Date(), likes: 0, commentsCount: 0, attachmentURL: attachmentURL, type: type)
         try await KollaborateService.uploadKollaborate(kollaborate)
         
         NotificationCenter.default.post(name: NSNotification.Name("NewPost"), object: nil)

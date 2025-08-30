@@ -9,22 +9,25 @@ struct LoginView: View {
                 // Background Gradient
                 LinearGradient(gradient: Gradient(colors: [Color("PrimaryBackground"), Color("SecondaryBackground")]), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
+                    .onTapGesture {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
                 
                 VStack(spacing: 20) {
-                    Spacer()
-                    
                     // App Icon and Title
                     VStack {
                         Image("Kollaborate-app-icon")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 120, height: 120)
+                            .frame(width: 240, height: 240)
+                            .padding(.bottom, -60)
                         
-                        Text("Welcome to Kollaborate")
-                            .font(.system(size: 32, weight: .bold))
+                        Text("Welcome back")
+                            .font(.system(size: 24, weight: .bold))
                             .foregroundColor(Color("PrimaryText"))
+                            .multilineTextAlignment(.center)
                     }
-                    .padding(.bottom, 40)
+                    .padding(.bottom, 20)
                     
                     // Input Fields
                     VStack(spacing: 15) {
@@ -75,7 +78,7 @@ struct LoginView: View {
                             .cornerRadius(10)
                             .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 5)
                     }
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, 120)
                     
                     Spacer()
                     

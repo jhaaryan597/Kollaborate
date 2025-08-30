@@ -10,55 +10,52 @@ struct CurrentUserProfileView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .top) {
-                // Background
-                Color("PrimaryBackground").ignoresSafeArea()
-                
-                // Main Content
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 20) {
-                        // Header
-                        VStack {
-                            // Cover Photo
-                            Rectangle()
-                                .fill(Color("SurfaceHighlight"))
-                                .frame(height: 200)
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 20) {
+                    // Header
+                    VStack {
+                        // Profile Image
+                        CircularProfileImageView(user: currentUser, size: .large)
+                        
+                        // User Info
+                        VStack(spacing: 8) {
+                            Text(currentUser?.fullname ?? "")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(Color("PrimaryText"))
                             
-                            // Profile Image
-                            CircularProfileImageView(user: currentUser, size: .large)
-                                .offset(y: -60)
-                                .padding(.bottom, -60)
-                            
-                            // User Info
-                            VStack(spacing: 8) {
-                                Text(currentUser?.fullname ?? "")
-                                    .font(.system(size: 24, weight: .bold))
-                                    .foregroundColor(Color("PrimaryText"))
-                                
-                                Text("@\(currentUser?.username ?? "")")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(Color("SecondaryText"))
-                            }
-                            
-                            // Edit Profile Button
-                            Button {
-                                showEditProfile.toggle()
-                            } label: {
-                                Text("Edit Profile")
-                                    .font(.system(size: 12, weight: .semibold))
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 8)
-                                    .background(Color("AccentColor"))
-                                    .cornerRadius(8)
-                            }
-                            .padding(.top)
+                            Text("@\(currentUser?.username ?? "")")
+                                .font(.system(size: 14))
+                                .foregroundColor(Color("SecondaryText"))
                         }
                         
-                        // User Content
-                        if let user = currentUser {
-                            UserContentListView(user: user)
+                        // Edit Profile Button
+                        Button {
+                            showEditProfile.toggle()
+                        } label: {
+                            Text("Edit Profile")
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundColor(Color("PrimaryBackground"))
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 8)
+                                .background(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color("AccentColor"), Color("SecondaryAccent")]),
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                                .cornerRadius(8)
                         }
+                        .padding(.top)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
+                    .padding()
+                    
+                    // User Content
+                    if let user = currentUser {
+                        UserContentListView(user: user)
                     }
                 }
             }

@@ -1,7 +1,11 @@
 import Foundation
 import Supabase
+import Combine
 
 public struct KollaborateService {
+    
+    public static let shared = KollaborateService()
+    public let newLikeSubject = PassthroughSubject<Void, Never>()
     
     private struct EncodableKollaborate: Encodable {
         let id: String
@@ -51,7 +55,7 @@ public struct KollaborateService {
         let increment_amount: Int
     }
 
-    public static func likeKollaborate(_ kollaborate: Kollaborate) async throws {
+    public func likeKollaborate(_ kollaborate: Kollaborate) async throws {
         guard let uid = AuthService.shared.currentUser?.id else { return }
         
         let postLike = PostLike(post_id: kollaborate.id, user_id: uid)
@@ -59,15 +63,17 @@ public struct KollaborateService {
         
         let params = IncrementParams(post_id: kollaborate.id, increment_amount: 1)
         try await supabase.database.rpc("increment_likes", params: params).execute()
+        newLikeSubject.send()
     }
     
-    public static func unlikeKollaborate(_ kollaborate: Kollaborate) async throws {
+    public func unlikeKollaborate(_ kollaborate: Kollaborate) async throws {
         guard let uid = AuthService.shared.currentUser?.id else { return }
         
         try await supabase.database.from("post_likes").delete().eq("post_id", value: kollaborate.id).eq("user_id", value: uid).execute()
         
         let params = IncrementParams(post_id: kollaborate.id, increment_amount: -1)
         try await supabase.database.rpc("increment_likes", params: params).execute()
+        newLikeSubject.send()
     }
     
     public static func checkIfUserLikedKollaborate(_ kollaborate: Kollaborate) async throws -> Bool {

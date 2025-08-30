@@ -12,18 +12,20 @@ public struct Kollaborate: Identifiable, Codable, Hashable {
     public let caption: String
     public let timestamp: Date
     public var likes: Int
+    public var commentsCount: Int?
     public var attachmentURL: String?
     public var type: ThreadType?
     
     public var user: User?
     public var didLike: Bool? = false
     
-    public init(id: String, ownerUid: String, caption: String, timestamp: Date, likes: Int, attachmentURL: String? = nil, type: ThreadType? = nil, user: User? = nil) {
+    public init(id: String, ownerUid: String, caption: String, timestamp: Date, likes: Int, commentsCount: Int?, attachmentURL: String? = nil, type: ThreadType? = nil, user: User? = nil) {
         self.id = id
         self.ownerUid = ownerUid
         self.caption = caption
         self.timestamp = timestamp
         self.likes = likes
+        self.commentsCount = commentsCount
         self.attachmentURL = attachmentURL
         self.type = type
         self.user = user
@@ -35,6 +37,7 @@ public struct Kollaborate: Identifiable, Codable, Hashable {
         case caption
         case timestamp
         case likes
+        case commentsCount = "comments_count"
         case attachmentURL = "attachment_url"
         case type
         case user

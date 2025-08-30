@@ -13,30 +13,39 @@ struct FeedView: View {
                 // Main Content
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
-                        // Header
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("Welcome Back!")
+                        if viewModel.kollaborates.isEmpty {
+                            // Header for empty feed
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text("Welcome Back!")
+                                    .font(.system(size: 32, weight: .bold))
+                                    .foregroundColor(Color("PrimaryText"))
+                                
+                                Text("What's on your mind?")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(Color("SecondaryText"))
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        } else {
+                            // Header for populated feed
+                            Text("Feed")
                                 .font(.system(size: 32, weight: .bold))
                                 .foregroundColor(Color("PrimaryText"))
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .center)
                             
-                            Text("What's on your mind?")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(Color("SecondaryText"))
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        // Kollaborate Cells
-                        LazyVStack(spacing: 16) {
-                            ForEach(viewModel.kollaborates) { kollaborate in
-                                KollaborateCell(kollaborate: kollaborate)
-                                    .padding(.horizontal)
+                            // Kollaborate Cells
+                            LazyVStack(spacing: 16) {
+                                ForEach(viewModel.kollaborates) { kollaborate in
+                                    KollaborateCell(kollaborate: kollaborate)
+                                        .padding(.horizontal)
+                                }
                             }
                         }
                     }
                 }
                 .refreshable {
-                    Task { try await viewModel.fetchKollaborates() }
+                    KollaborateCache.shared.fetchKollaborates()
                 }
             }
             .navigationTitle("Feed")

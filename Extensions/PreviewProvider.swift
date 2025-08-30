@@ -11,5 +11,5 @@ class DeveloperPreview {
     
     let user = User(id: NSUUID().uuidString, fullname: "Tommy Shelby", email: "tommy@gmail.com", username: "tommy_shelby1")
     
-    let kollaborate = Kollaborate(id: NSUUID().uuidString, ownerUid: "123", caption: "This is a test thread", timestamp: Date(), likes: 0)
+    let kollaborate = Kollaborate(id: NSUUID().uuidString, ownerUid: "123", caption: "This is a test thread", timestamp: Date(), likes: 0, commentsCount: 0)
 }
