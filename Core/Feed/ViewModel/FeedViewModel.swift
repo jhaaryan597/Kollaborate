@@ -1,26 +1,35 @@
 import Foundation
+import Combine
 
 @MainActor
 class FeedViewModel: ObservableObject {
     @Published var kollaborates = [Kollaborate]()
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        Task { try await fetchKollaborates() }
+        AuthService.shared.$currentUser
+            .sink { [weak self] user in
+                guard user != nil else { return }
+                Task { try await self?.fetchKollaborates() }
+            }
+            .store(in: &cancellables)
     }
     
     func fetchKollaborates() async throws {
         guard let organizationId = AuthService.shared.currentUser?.organizationId else { return }
-        self.kollaborates = try await KollaborateService.fetchKollaborates().filter { $0.user?.organizationId == organizationId }
-        try await fetchUserDataForKollaborates()
-    }
-    
-    private func fetchUserDataForKollaborates() async throws {
-        for i in 0 ..< kollaborates.count {
-            let kollaborate = kollaborates[i]
+        
+        // Fetch all kollaborates first
+        var fetchedKollaborates = try await KollaborateService.fetchKollaborates()
+        
+        // Fetch user data for each kollaborate
+        for i in 0 ..< fetchedKollaborates.count {
+            let kollaborate = fetchedKollaborates[i]
             let ownerUid = kollaborate.ownerUid
             let kollaborateUser = try await UserService.fetchUser(withUid: ownerUid)
-            
-            kollaborates[i].user = kollaborateUser
+            fetchedKollaborates[i].user = kollaborateUser
         }
+        
+        // Now, filter the kollaborates based on the organizationId
+        self.kollaborates = fetchedKollaborates.filter { $0.user?.organizationId == organizationId }
     }
 }

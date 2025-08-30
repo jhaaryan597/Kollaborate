@@ -2,28 +2,11 @@ import Foundation
 import Supabase
 
 class UserService {
-    @Published var currentUser: User?
+    var currentUser: User? {
+        return AuthService.shared.currentUser
+    }
     
     static let shared = UserService()
-    
-    init() {
-        Task { try await fetchCurrentUser() }
-    }
-    
-    @MainActor
-    func fetchCurrentUser() async throws {
-        let currentUid = try await supabase.auth.session.user.id
-        
-        let user: User = try await supabase.database
-            .from("users")
-            .select()
-            .eq("id", value: currentUid.uuidString)
-            .single()
-            .execute()
-            .value
-        
-        self.currentUser = user
-    }
     
     static func fetchUsers() async throws -> [User] {
         let currentUid = try await supabase.auth.session.user.id
@@ -50,12 +33,12 @@ class UserService {
     }
     
     func reset() {
-        self.currentUser = nil
+        // This now does nothing, as the user is managed by AuthService
     }
     
     @MainActor
     func updateUserProfileImage(withImageUrl imageUrl: String) async throws {
-        let currentUid = try await supabase.auth.session.user.id
+        guard let currentUid = currentUser?.id else { return }
         
         let updatedUser = User(
             id: currentUser!.id,
@@ -68,9 +51,9 @@ class UserService {
         try await supabase.database
             .from("users")
             .update(updatedUser)
-            .eq("id", value: currentUid.uuidString)
+            .eq("id", value: currentUid)
             .execute()
         
-        self.currentUser?.profileImageUrl = imageUrl
+        AuthService.shared.currentUser?.profileImageUrl = imageUrl
     }
 }

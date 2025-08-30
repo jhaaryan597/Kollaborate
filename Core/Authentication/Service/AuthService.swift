@@ -7,21 +7,35 @@ class AuthService: ObservableObject {
     @Published var currentUser: User?
     
     static let shared = AuthService()
+    private var authStateTask: Task<Void, Never>? = nil
     
     init() {
-        Task {
-            await loadUserData()
+        authStateTask = Task {
+            for await (event, session) in supabase.auth.authStateChanges {
+                await MainActor.run {
+                    switch event {
+                    case .signedIn:
+                        self.session = session
+                        Task { await self.loadUserData() }
+                    case .signedOut:
+                        self.session = nil
+                        self.currentUser = nil
+                    default:
+                        break
+                    }
+                }
+            }
         }
     }
     
     @MainActor
-    func loadUserData() async {
+    private func loadUserData() async {
+        guard let session = session else { return }
         do {
-            self.session = try await supabase.auth.session
-            guard let session = session else { return }
             self.currentUser = try await UserService.fetchUser(withUid: session.user.id.uuidString)
         } catch {
             print("DEBUG: Error loading user data: \(error.localizedDescription)")
+            self.currentUser = nil
         }
     }
     
@@ -29,7 +43,6 @@ class AuthService: ObservableObject {
     func login(withEmail email: String, password: String) async -> Result<Void, Error> {
         do {
             try await supabase.auth.signIn(email: email, password: password)
-            await loadUserData()
             return .success(())
         } catch {
             return .failure(error)
@@ -48,7 +61,6 @@ class AuthService: ObservableObject {
                 .insert(user)
                 .execute()
             
-            await loadUserData()
             return .success(())
         } catch {
             return .failure(error)
@@ -58,12 +70,8 @@ class AuthService: ObservableObject {
     func signOut() async {
         do {
             try await supabase.auth.signOut()
-            self.session = nil
-            self.currentUser = nil
-            UserService.shared.reset()
         } catch {
             print("DEBUG: Error signing out: \(error.localizedDescription)")
         }
     }
-    
 }

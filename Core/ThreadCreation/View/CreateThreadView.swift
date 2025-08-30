@@ -8,7 +8,7 @@ struct CreateThreadView: View {
     @Environment(\.dismiss) var dismiss
     
     private var user: User? {
-        return UserService.shared.currentUser
+        return AuthService.shared.currentUser
     }
     
     var body: some View {
