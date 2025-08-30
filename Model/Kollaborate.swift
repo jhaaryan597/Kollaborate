@@ -16,6 +16,7 @@ public struct Kollaborate: Identifiable, Codable, Hashable {
     public var type: ThreadType?
     
     public var user: User?
+    public var didLike: Bool? = false
     
     public init(id: String, ownerUid: String, caption: String, timestamp: Date, likes: Int, attachmentURL: String? = nil, type: ThreadType? = nil, user: User? = nil) {
         self.id = id
@@ -37,5 +38,6 @@ public struct Kollaborate: Identifiable, Codable, Hashable {
         case attachmentURL = "attachment_url"
         case type
         case user
+        case didLike
     }
 }

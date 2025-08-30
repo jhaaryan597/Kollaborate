@@ -1,20 +1,50 @@
 import SwiftUI
 
+@MainActor
+class KollaborateCellViewModel: ObservableObject {
+    @Published var kollaborate: Kollaborate
+    
+    init(kollaborate: Kollaborate) {
+        self.kollaborate = kollaborate
+        Task { try await checkIfUserLikedKollaborate() }
+    }
+    
+    func like() async throws {
+        try await KollaborateService.likeKollaborate(kollaborate)
+        self.kollaborate.likes += 1
+        self.kollaborate.didLike = true
+    }
+    
+    func unlike() async throws {
+        try await KollaborateService.unlikeKollaborate(kollaborate)
+        self.kollaborate.likes -= 1
+        self.kollaborate.didLike = false
+    }
+    
+    func checkIfUserLikedKollaborate() async throws {
+        self.kollaborate.didLike = try await KollaborateService.checkIfUserLikedKollaborate(kollaborate)
+    }
+}
+
 struct KollaborateCell: View {
-    let kollaborate: Kollaborate
+    @StateObject var viewModel: KollaborateCellViewModel
+    
+    init(kollaborate: Kollaborate) {
+        self._viewModel = StateObject(wrappedValue: KollaborateCellViewModel(kollaborate: kollaborate))
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             // User Info
             HStack(alignment: .top, spacing: 12) {
-                CircularProfileImageView(user: kollaborate.user, size: .small)
+                CircularProfileImageView(user: viewModel.kollaborate.user, size: .small)
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(kollaborate.user?.username ?? "")
+                    Text(viewModel.kollaborate.user?.username ?? "")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(Color("PrimaryText"))
                     
-                    Text(kollaborate.timestamp.timestampString())
+                    Text(viewModel.kollaborate.timestamp.timestampString())
                         .font(.system(size: 12))
                         .foregroundColor(Color("SecondaryText"))
                 }
@@ -30,7 +60,7 @@ struct KollaborateCell: View {
             }
             
             // Caption
-            Text(kollaborate.caption)
+            Text(viewModel.kollaborate.caption)
                 .font(.system(size: 14))
                 .foregroundColor(Color("PrimaryText"))
                 .multilineTextAlignment(.leading)
@@ -38,10 +68,16 @@ struct KollaborateCell: View {
             // Action Buttons
             HStack(spacing: 24) {
                 Button {
-                    // Like
+                    Task {
+                        if viewModel.kollaborate.didLike == true {
+                            try await viewModel.unlike()
+                        } else {
+                            try await viewModel.like()
+                        }
+                    }
                 } label: {
-                    Image(systemName: "heart")
-                        .foregroundColor(Color("SecondaryText"))
+                    Image(systemName: viewModel.kollaborate.didLike == true ? "heart.fill" : "heart")
+                        .foregroundColor(viewModel.kollaborate.didLike == true ? .red : Color("SecondaryText"))
                 }
                 
                 Button {
