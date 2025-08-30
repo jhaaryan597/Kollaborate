@@ -38,23 +38,6 @@ struct FeedView: View {
                 .refreshable {
                     Task { try await viewModel.fetchKollaborates() }
                 }
-                
-                // Floating Action Button
-                Button(action: {
-                    showCreateThreadView.toggle()
-                }) {
-                    Image(systemName: "plus")
-                        .font(.title.weight(.semibold))
-                        .padding()
-                        .background(Color("AccentColor"))
-                        .foregroundColor(.white)
-                        .clipShape(Circle())
-                        .shadow(radius: 4, x: 0, y: 4)
-                }
-                .padding()
-                .sheet(isPresented: $showCreateThreadView) {
-                    CreateThreadView()
-                }
             }
             .navigationTitle("Feed")
             .navigationBarHidden(true)

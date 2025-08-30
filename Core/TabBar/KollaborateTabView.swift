@@ -2,6 +2,7 @@ import SwiftUI
 
 struct KollaborateTabView: View {
     @State private var selectedTab = 0
+    @State private var showCreateThreadView = false
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -20,36 +21,30 @@ struct KollaborateTabView: View {
                 .onAppear { selectedTab = 1 }
                 .tag(1)
 
-            ChannelsView()
-                .tabItem {
-                    Image(systemName: selectedTab == 2 ? "bubble.left.and.bubble.right.fill" : "bubble.left.and.bubble.right")
-                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
-                }
-                .onAppear { selectedTab = 2 }
-                .tag(2)
-            
             Text("")
                 .tabItem {
                     Image(systemName: "plus")
                 }
-                .onAppear { selectedTab = 3 }
-                .tag(3)
+                .onAppear { selectedTab = 2 }
+                .tag(2)
             
-            ActivityView()
+            CurrentUserProfileView()
                 .tabItem {
-                    Image(systemName: selectedTab == 4 ? "heart.fill" : "heart")
+                    Image(systemName: selectedTab == 4 ? "person.fill" : "person")
                         .environment(\.symbolVariants, selectedTab == 4 ? .fill : .none)
                 }
                 .onAppear { selectedTab = 4 }
                 .tag(4)
-            
-            CurrentUserProfileView()
-                .tabItem {
-                    Image(systemName: selectedTab == 5 ? "person.fill" : "person")
-                        .environment(\.symbolVariants, selectedTab == 5 ? .fill : .none)
-                }
-                .onAppear { selectedTab = 5 }
-                .tag(5)
+        }
+        .onChange(of: selectedTab) { newValue in
+            if newValue == 2 {
+                showCreateThreadView.toggle()
+            }
+        }
+        .sheet(isPresented: $showCreateThreadView, onDismiss: {
+            selectedTab = 0
+        }) {
+            CreateThreadView()
         }
         .tint(Color("AccentColor"))
         .onAppear {

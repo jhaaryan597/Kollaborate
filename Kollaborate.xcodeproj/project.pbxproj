@@ -16,7 +16,6 @@
 		41C11FF92E47824D003C0374 /* DocumentUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FF82E47824D003C0374 /* DocumentUploader.swift */; };
 		41C11FFB2E4783B9003C0374 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FFA2E4783B9003C0374 /* Channel.swift */; };
 		41C11FFD2E478404003C0374 /* ChannelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FFC2E478404003C0374 /* ChannelService.swift */; };
-		EAFAB8A02AA816A6008611E9 /* KollaborateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAB89F2AA816A6008611E9 /* KollaborateService.swift */; };
 		41C1200A2E478584003C0374 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C120092E478584003C0374 /* DocumentPicker.swift */; };
 		EAFA39512AA4184C008611E9 /* KollaborateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39502AA4184C008611E9 /* KollaborateApp.swift */; };
 		EAFA39532AA4184C008611E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39522AA4184C008611E9 /* ContentView.swift */; };
@@ -52,19 +51,19 @@
 		EAFA39C62AA8051D008611E9 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39C52AA8051D008611E9 /* ImageUploader.swift */; };
 		EAFA39CB2AA81591008611E9 /* Kollaborate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39CA2AA81591008611E9 /* Kollaborate.swift */; };
 		EAFA39CE2AA816A6008611E9 /* CreateThreadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39CD2AA816A6008611E9 /* CreateThreadViewModel.swift */; };
-				EAFA39D32AA81D0F008611E9 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39D22AA81D0F008611E9 /* FeedViewModel.swift */; };
+		EAFA39D32AA81D0F008611E9 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39D22AA81D0F008611E9 /* FeedViewModel.swift */; };
 		EAFA39D82AA82834008611E9 /* UserContentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39D72AA82834008611E9 /* UserContentListViewModel.swift */; };
 		EAFA39DC2AA82A8B008611E9 /* Supabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39DB2AA82A8B008611E9 /* Supabase.swift */; };
 		EAFA39DE2AA82A8B008611F0 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFA39DD2AA82A8B008611F0 /* Date.swift */; };
+		EAFAB8A02AA816A6008611E9 /* KollaborateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAB89F2AA816A6008611E9 /* KollaborateService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		41C11FF82E47824D003C0374 /* DocumentUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUploader.swift; sourceTree = "<group>"; };
 		41C11FFA2E4783B9003C0374 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		41C11FFC2E478404003C0374 /* ChannelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelService.swift; sourceTree = "<group>"; };
-		EAFAB89F2AA816A6008611E9 /* KollaborateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KollaborateService.swift; sourceTree = "<group>"; };
 		41C120092E478584003C0374 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
-		EAFA394D2AA4184C008611E9 /* Kollaborate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kollaborate.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAFA394D2AA4184C008611E9 /* Kollaborate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kollaborate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAFA39502AA4184C008611E9 /* KollaborateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KollaborateApp.swift; sourceTree = "<group>"; };
 		EAFA39522AA4184C008611E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EAFA39542AA4184D008611E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,10 +98,11 @@
 		EAFA39C52AA8051D008611E9 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		EAFA39CA2AA81591008611E9 /* Kollaborate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kollaborate.swift; sourceTree = "<group>"; };
 		EAFA39CD2AA816A6008611E9 /* CreateThreadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThreadViewModel.swift; sourceTree = "<group>"; };
-				EAFA39D22AA81D0F008611E9 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		EAFA39D22AA81D0F008611E9 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		EAFA39D72AA82834008611E9 /* UserContentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContentListViewModel.swift; sourceTree = "<group>"; };
 		EAFA39DB2AA82A8B008611E9 /* Supabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supabase.swift; sourceTree = "<group>"; };
 		EAFA39DD2AA82A8B008611F0 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		EAFAB89F2AA816A6008611E9 /* KollaborateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KollaborateService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -180,7 +180,7 @@
 				EAFA39DB2AA82A8B008611E9 /* Supabase.swift */,
 				EAFA39AE2AA55A0D008611E9 /* UserService.swift */,
 				EAFA39C52AA8051D008611E9 /* ImageUploader.swift */,
-								41C11FF82E47824D003C0374 /* DocumentUploader.swift */,
+				41C11FF82E47824D003C0374 /* DocumentUploader.swift */,
 				41C11FFC2E478404003C0374 /* ChannelService.swift */,
 			);
 			path = Services;
@@ -531,7 +531,7 @@
 			fileSystemSynchronizedGroups = (
 				41C11FFE2E47843D003C0374 /* Channels */,
 			);
-			name = "Kollaborate";
+			name = Kollaborate;
 			packageProductDependencies = (
 				415990752E431F1100F3FC51 /* Auth */,
 				415990772E431F1100F3FC51 /* PostgREST */,
@@ -540,7 +540,7 @@
 				4159907D2E431F1100F3FC51 /* Supabase */,
 				415990802E431F2E00F3FC51 /* Kingfisher */,
 			);
-			productName = "Kollaborate";
+			productName = Kollaborate;
 			productReference = EAFA394D2AA4184C008611E9 /* Kollaborate.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -636,7 +636,7 @@
 				EAFA39862AA447DC008611E9 /* ProfileView.swift in Sources */,
 				EAFA396B2AA42E27008611E9 /* RegistrationView.swift in Sources */,
 				EAFA39AD2AA55749008611E9 /* User.swift in Sources */,
-								EAFA39DC2AA82A8B008611E9 /* Supabase.swift in Sources */,
+				EAFA39DC2AA82A8B008611E9 /* Supabase.swift in Sources */,
 				41C11FF92E47824D003C0374 /* DocumentUploader.swift in Sources */,
 				EAFA39DE2AA82A8B008611F0 /* Date.swift in Sources */,
 			);
@@ -780,7 +780,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aryanjha.Kollaborate";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aryanjha.Kollaborate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -809,7 +809,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.aryanjha.Kollaborate";
+				PRODUCT_BUNDLE_IDENTIFIER = com.aryanjha.Kollaborate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
