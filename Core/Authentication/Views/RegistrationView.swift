@@ -57,14 +57,6 @@ struct RegistrationView: View {
                         .cornerRadius(10)
                         .foregroundColor(Color("PrimaryText"))
                         .modifier(KollaborateTextFieldModifier())
-                    
-                    TextField("Enter your organization ID", text: $viewModel.organizationId)
-                        .autocapitalization(.none)
-                        .padding()
-                        .background(Color.black.opacity(0.2))
-                        .cornerRadius(10)
-                        .foregroundColor(Color("PrimaryText"))
-                        .modifier(KollaborateTextFieldModifier())
                 }
                 .padding(.horizontal, 30)
                 

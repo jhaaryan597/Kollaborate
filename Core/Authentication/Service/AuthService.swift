@@ -50,11 +50,11 @@ class AuthService: ObservableObject {
     }
 
     @MainActor
-    func createUser(withEmail email: String, password: String, fullname: String, username: String, organizationId: String, role: UserRole) async -> Result<Void, Error> {
+    func createUser(withEmail email: String, password: String, fullname: String, username: String, role: UserRole) async -> Result<Void, Error> {
         do {
             let result = try await supabase.auth.signUp(email: email, password: password)
             
-            let user = User(id: result.user.id.uuidString, fullname: fullname, email: email, username: username, organizationId: organizationId, role: role)
+            let user = User(id: result.user.id.uuidString, fullname: fullname, email: email, username: username, role: role)
             
             try await supabase.database
                 .from("users")

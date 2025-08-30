@@ -5,7 +5,6 @@ class RegistrationViewModel: ObservableObject {
     @Published var password = ""
     @Published var fullname = ""
     @Published var username = ""
-    @Published var organizationId = ""
     
     @MainActor
     func createUser() async {
@@ -14,7 +13,6 @@ class RegistrationViewModel: ObservableObject {
             password: password,
             fullname: fullname,
             username: username,
-            organizationId: organizationId,
             role: .employee
         )
         

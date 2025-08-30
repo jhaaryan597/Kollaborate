@@ -13,11 +13,13 @@ class FeedViewModel: ObservableObject {
                 Task { try await self?.fetchKollaborates() }
             }
             .store(in: &cancellables)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("NewPost"), object: nil, queue: .main) { [weak self] _ in
+            Task { try await self?.fetchKollaborates() }
+        }
     }
     
     func fetchKollaborates() async throws {
-        guard let organizationId = AuthService.shared.currentUser?.organizationId else { return }
-        
         // Fetch all kollaborates first
         var fetchedKollaborates = try await KollaborateService.fetchKollaborates()
         
@@ -29,7 +31,7 @@ class FeedViewModel: ObservableObject {
             fetchedKollaborates[i].user = kollaborateUser
         }
         
-        // Now, filter the kollaborates based on the organizationId
-        self.kollaborates = fetchedKollaborates.filter { $0.user?.organizationId == organizationId }
+        // Display all fetched kollaborates without filtering
+        self.kollaborates = fetchedKollaborates
     }
 }
