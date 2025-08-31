@@ -32,16 +32,14 @@ struct AddTaskView: View {
                                     .foregroundColor(Color("PrimaryText"))
                                 
                                 TextField("Task title", text: $title)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .foregroundColor(Color("PrimaryText"))
+                                    .padding(12)
                                     .background(Color("SurfaceHighlight"))
-                                    .cornerRadius(8)
+                                    .cornerRadius(12)
                                 
                                 TextField("Description (optional)", text: $description, axis: .vertical)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .foregroundColor(Color("PrimaryText"))
+                                    .padding(12)
                                     .background(Color("SurfaceHighlight"))
-                                    .cornerRadius(8)
+                                    .cornerRadius(12)
                                     .lineLimit(3...6)
                             }
                             
@@ -51,21 +49,29 @@ struct AddTaskView: View {
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(Color("PrimaryText"))
                                 
-                                Picker("Priority", selection: $priority) {
-                                    ForEach(TaskPriority.allCases, id: \.self) { priority in
-                                        HStack {
-                                            Circle()
-                                                .fill(priorityColor(priority))
-                                                .frame(width: 12, height: 12)
-                                            Text(priority.rawValue.capitalized)
-                                                .foregroundColor(Color("PrimaryText"))
+                                Menu {
+                                    Picker("Priority", selection: $priority) {
+                                        ForEach(TaskPriority.allCases, id: \.self) { priority in
+                                            HStack {
+                                                Circle()
+                                                    .fill(priorityColor(priority))
+                                                    .frame(width: 12, height: 12)
+                                                Text(priority.rawValue.capitalized)
+                                            }
+                                            .tag(priority)
                                         }
-                                        .tag(priority)
                                     }
+                                } label: {
+                                    HStack {
+                                        Text(priority.rawValue.capitalized)
+                                        Spacer()
+                                        Image(systemName: "chevron.down")
+                                            .font(.subheadline)
+                                    }
+                                    .padding(12)
+                                    .background(Color("SurfaceHighlight"))
+                                    .cornerRadius(12)
                                 }
-                                .pickerStyle(MenuPickerStyle())
-                                .background(Color("SurfaceHighlight"))
-                                .cornerRadius(8)
                             }
                             
                             // Due Date Section
@@ -75,9 +81,9 @@ struct AddTaskView: View {
                                     .foregroundColor(Color("PrimaryText"))
                                 
                                 Toggle("Set due date", isOn: $hasDueDate)
-                                    .foregroundColor(Color("PrimaryText"))
+                                    .padding(12)
                                     .background(Color("SurfaceHighlight"))
-                                    .cornerRadius(8)
+                                    .cornerRadius(12)
                                 
                                 if hasDueDate {
                                     DatePicker(
@@ -85,33 +91,31 @@ struct AddTaskView: View {
                                         selection: $dueDate,
                                         displayedComponents: [.date, .hourAndMinute]
                                     )
-                                    .foregroundColor(Color("PrimaryText"))
+                                    .padding(12)
                                     .background(Color("SurfaceHighlight"))
-                                    .cornerRadius(8)
+                                    .cornerRadius(12)
                                 }
                             }
                         }
                         .padding()
                     }
+                    
+                    // Add Task Button
+                    Button(action: saveTask) {
+                        Text("Add Task")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("AccentColor"))
+                            .cornerRadius(12)
+                    }
+                    .disabled(title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isLoading)
+                    .padding(.horizontal)
                 }
             }
             .navigationBarHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                    .foregroundColor(Color("PrimaryText"))
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        saveTask()
-                    }
-                    .disabled(title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isLoading)
-                    .foregroundColor(Color("PrimaryText"))
-                }
-            }
         }
         .environment(\.colorScheme, .dark)
     }

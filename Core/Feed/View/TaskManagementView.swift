@@ -12,19 +12,13 @@ struct TaskManagementView: View {
                 Color("PrimaryBackground").ignoresSafeArea()
                 
                 VStack(spacing: 0) {
-                    // Header with Add Button
+                    // Header
                     HStack {
                         Spacer()
                         Text("Task Management")
                             .font(.system(size: 32, weight: .bold))
                             .foregroundColor(Color("PrimaryText"))
                         Spacer()
-                        
-                        Button(action: { showAddTask = true }) {
-                            Image(systemName: "plus")
-                                .font(.title2)
-                                .foregroundColor(Color("PrimaryText"))
-                        }
                     }
                     .padding()
                     

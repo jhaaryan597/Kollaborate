@@ -3,6 +3,7 @@ import SwiftUI
 struct KollaborateTabView: View {
     @State private var selectedTab = 0
     @State private var showCreateThreadView = false
+    @State private var showCreateTaskView = false
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -46,7 +47,21 @@ struct KollaborateTabView: View {
         }
         .onChange(of: selectedTab) { newValue in
             if newValue == 2 {
+                // This is a placeholder for the menu action
+            }
+        }
+        .confirmationDialog("Create", isPresented: Binding(
+            get: { selectedTab == 2 },
+            set: { if !$0 { selectedTab = 0 } }
+        )) {
+            Button("New Thread") {
                 showCreateThreadView.toggle()
+            }
+            Button("New Task") {
+                showCreateTaskView.toggle()
+            }
+            Button("Cancel", role: .cancel) {
+                selectedTab = 0
             }
         }
         .sheet(isPresented: $showCreateThreadView, onDismiss: {
@@ -54,10 +69,18 @@ struct KollaborateTabView: View {
         }) {
             CreateThreadView()
         }
+        .sheet(isPresented: $showCreateTaskView, onDismiss: {
+            selectedTab = 0
+        }) {
+            AddTaskView { task in
+                // Handle task creation
+            }
+        }
         .tint(Color("AccentColor"))
         .onAppear {
             UITabBar.appearance().unselectedItemTintColor = UIColor(named: "SecondaryText")
         }
+        .environment(\.colorScheme, .dark)
     }
 }
 
