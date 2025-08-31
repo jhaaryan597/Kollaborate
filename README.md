@@ -42,12 +42,19 @@ Kollaborate is designed for **professionals, students, and teams** who want a si
 **Actual app looks even better in action!** 😍  
 
 <p align="center">
-  <img src="Assets/ss1.png" width="250"/>
-  <img src="Assets/ss2.png" width="250"/>
-  <img src="Assets/ss3.png" width="250"/>
-  <img src="Assets/ss4.png" width="250"/>
-  <img src="Assets/ss5.png" width="250"/>
-</p>  
+  <img src="AssetIMG/ss1.png" width="250"/>
+  <img src="AssetIMG/ss2.png" width="250"/>
+  <img src="AssetIMG/ss3.png" width="250"/>
+  <img src="AssetIMG/ss4.png" width="250"/>
+  <img src="AssetIMG/ss5.png" width="250"/>
+  <img src="AssetIMG/ss6.png" width="250"/>
+  <img src="AssetIMG/ss7.png" width="250"/>
+  <img src="AssetIMG/ss8.png" width="250"/>
+  <img src="AssetIMG/ss9.png" width="250"/>
+  <img src="AssetIMG/ss10.png" width="250"/>
+  <img src="AssetIMG/ss11.png" width="250"/>
+  <img src="AssetIMG/ss12.png" width="250"/>
+</p>
 
 ---
 
