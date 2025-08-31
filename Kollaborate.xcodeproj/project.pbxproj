@@ -28,6 +28,7 @@
 		418A78432E6473180083E133 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A783E2E6473180083E133 /* CommentService.swift */; };
 		418A78462E64732B0083E133 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78442E64732B0083E133 /* CommentView.swift */; };
 		418A78472E64732B0083E133 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78452E64732B0083E133 /* ShareSheet.swift */; };
+		418A78492E64BB880083E133 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78482E64BB880083E133 /* CommentViewModel.swift */; };
 		41C11FF92E47824D003C0374 /* DocumentUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FF82E47824D003C0374 /* DocumentUploader.swift */; };
 		41C11FFB2E4783B9003C0374 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FFA2E4783B9003C0374 /* Channel.swift */; };
 		41C11FFD2E478404003C0374 /* ChannelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FFC2E478404003C0374 /* ChannelService.swift */; };
@@ -89,6 +90,7 @@
 		418A78402E6473180083E133 /* RepostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepostService.swift; sourceTree = "<group>"; };
 		418A78442E64732B0083E133 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		418A78452E64732B0083E133 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		418A78482E64BB880083E133 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		41C11FF82E47824D003C0374 /* DocumentUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUploader.swift; sourceTree = "<group>"; };
 		41C11FFA2E4783B9003C0374 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		41C11FFC2E478404003C0374 /* ChannelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelService.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 		EAFA39892AA4FF71008611E9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				418A78482E64BB880083E133 /* CommentViewModel.swift */,
 				418A78442E64732B0083E133 /* CommentView.swift */,
 				418A78452E64732B0083E133 /* ShareSheet.swift */,
 				418A78322E6464D40083E133 /* TaskDetailView.swift */,
@@ -644,6 +647,7 @@
 				EAFA39692AA419DF008611E9 /* LoginView.swift in Sources */,
 				EAFA39A52AA53B1D008611E9 /* AuthService.swift in Sources */,
 				418A783B2E6472F90083E133 /* Comment.swift in Sources */,
+				418A78492E64BB880083E133 /* CommentViewModel.swift in Sources */,
 				418A783C2E6472F90083E133 /* DirectMessage.swift in Sources */,
 				418A783D2E6472F90083E133 /* Repost.swift in Sources */,
 				EAFA39B72AA56E84008611E9 /* PreviewProvider.swift in Sources */,

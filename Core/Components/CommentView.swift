@@ -3,6 +3,7 @@ import SwiftUI
 struct CommentView: View {
     @State private var commentText = ""
     @StateObject private var viewModel: CommentViewModel
+    @State private var showingError = false
     
     init(kollaborate: Kollaborate) {
         _viewModel = StateObject(wrappedValue: CommentViewModel(kollaborate: kollaborate))
@@ -14,29 +15,34 @@ struct CommentView: View {
                 .font(.title)
                 .fontWeight(.bold)
             
-            ScrollView {
-                LazyVStack {
-                    ForEach(viewModel.comments) { comment in
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(comment.user?.username ?? "")
-                                    .fontWeight(.semibold)
-                                Spacer()
-                                Text(comment.createdAt.dateString)
-                                    .foregroundColor(.gray)
-                            }
-                            Text(comment.commentText)
+            if viewModel.isLoading && viewModel.comments.isEmpty {
+                ProgressView("Loading comments...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 12) {
+                        ForEach(viewModel.comments) { comment in
+                            CommentRowView(comment: comment)
                         }
-                        .padding()
-                        .background(Color("SurfaceHighlight"))
-                        .cornerRadius(10)
+                        
+                        if viewModel.comments.isEmpty && !viewModel.isLoading {
+                            Text("No comments yet")
+                                .foregroundColor(.gray)
+                                .padding()
+                        }
                     }
+                    .padding(.horizontal)
+                }
+                .refreshable {
+                    await viewModel.refreshComments()
                 }
             }
             
+            // Comment input section
             HStack {
                 TextField("Add a comment...", text: $commentText)
                     .modifier(KollaborateTextFieldModifier())
+                    .disabled(viewModel.isPostingComment)
                 
                 Button(action: {
                     Task {
@@ -44,44 +50,60 @@ struct CommentView: View {
                         commentText = ""
                     }
                 }) {
-                    Image(systemName: "paperplane.fill")
-                        .foregroundColor(Color("AccentColor"))
+                    if viewModel.isPostingComment {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color("AccentColor")))
+                            .scaleEffect(0.8)
+                    } else {
+                        Image(systemName: "paperplane.fill")
+                            .foregroundColor(Color("AccentColor"))
+                    }
                 }
+                .disabled(commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || viewModel.isPostingComment)
             }
             .padding()
         }
         .onAppear {
-            Task { await viewModel.fetchComments() }
+            Task { 
+                print("🔄 CommentView appeared, fetching comments...")
+                await viewModel.fetchComments() 
+            }
+        }
+        .alert("Error", isPresented: $showingError) {
+            Button("OK") { 
+                viewModel.errorMessage = nil
+            }
+        } message: {
+            Text(viewModel.errorMessage ?? "An unknown error occurred")
+        }
+        .onChange(of: viewModel.errorMessage) { errorMessage in
+            showingError = errorMessage != nil
         }
     }
 }
 
-class CommentViewModel: ObservableObject {
-    @Published var comments = [Comment]()
-    private let kollaborate: Kollaborate
+struct CommentRowView: View {
+    let comment: Comment
     
-    init(kollaborate: Kollaborate) {
-        self.kollaborate = kollaborate
-    }
-    
-    @MainActor
-    func fetchComments() async {
-        do {
-            self.comments = try await CommentService.shared.fetchComments(forPostId: kollaborate.id)
-        } catch {
-            print("Failed to fetch comments: \(error)")
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(comment.user?.username ?? "Anonymous")
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("PrimaryText"))
+                Spacer()
+                Text(comment.createdAt.dateString)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            
+            Text(comment.commentText)
+                .foregroundColor(Color("SecondaryText"))
+                .multilineTextAlignment(.leading)
         }
-    }
-    
-    @MainActor
-    func postComment(_ commentText: String) async {
-        guard let userId = AuthService.shared.currentUser?.id else { return }
-        do {
-            try await CommentService.shared.postComment(commentText, forPostId: kollaborate.id, userId: userId)
-            await fetchComments()
-        } catch {
-            print("Failed to post comment: \(error)")
-        }
+        .padding()
+        .background(Color("SurfaceHighlight"))
+        .cornerRadius(10)
     }
 }
 
