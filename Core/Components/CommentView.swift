@@ -22,7 +22,7 @@ struct CommentView: View {
                 ScrollView {
                     LazyVStack(spacing: 8) {
                         ForEach(viewModel.comments) { comment in
-                            CommentRowView(comment: comment)
+                            CommentRowView(comment: comment, viewModel: viewModel)
                         }
                         
                         if viewModel.comments.isEmpty && !viewModel.isLoading {
@@ -86,6 +86,9 @@ struct CommentView: View {
 
 struct CommentRowView: View {
     let comment: Comment
+    @ObservedObject var viewModel: CommentViewModel
+    @State private var showReplyField = false
+    @State private var replyText = ""
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -102,6 +105,41 @@ struct CommentRowView: View {
             Text(comment.commentText)
                 .foregroundColor(Color("SecondaryText"))
                 .multilineTextAlignment(.leading)
+            
+            Button(action: {
+                showReplyField.toggle()
+            }) {
+                Text("Reply")
+                    .font(.caption)
+                    .foregroundColor(Color("AccentColor"))
+            }
+            
+            if showReplyField {
+                HStack {
+                    TextField("Add a reply...", text: $replyText)
+                        .padding(8)
+                        .background(Color("SurfaceHighlight"))
+                        .cornerRadius(8)
+                    
+                    Button(action: {
+                        Task {
+                            await viewModel.postComment(replyText, parentCommentId: comment.id)
+                            replyText = ""
+                            showReplyField = false
+                        }
+                    }) {
+                        Image(systemName: "paperplane.fill")
+                            .foregroundColor(Color("AccentColor"))
+                    }
+                }
+            }
+            
+            if let replies = comment.replies {
+                ForEach(replies) { reply in
+                    CommentRowView(comment: reply, viewModel: viewModel)
+                        .padding(.leading, 20)
+                }
+            }
         }
         .padding(12)
         .background(Color("SurfaceHighlight"))

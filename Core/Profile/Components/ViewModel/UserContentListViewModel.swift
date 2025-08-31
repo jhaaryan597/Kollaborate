@@ -1,10 +1,3 @@
-//
-//  UserContentListViewModel.swift
-//  Kollaborate
-//
-//  Created by Aryan Jha on 9/5/23.
-//
-
 import Foundation
 
 class UserContentListViewModel: ObservableObject {
@@ -19,12 +12,10 @@ class UserContentListViewModel: ObservableObject {
     
     @MainActor
     func fetchUserKollaborates() async throws {
-        var kollaborates = try await KollaborateService.fetchUserKollaborates(uid: user.id)
+        self.kollaborates = try await KollaborateService.fetchUserKollaborates(uid: user.id)
         
         for i in 0 ..< kollaborates.count {
             kollaborates[i].user = self.user
         }
-        
-        self.kollaborates = kollaborates
     }
 }

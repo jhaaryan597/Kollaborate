@@ -37,7 +37,7 @@ class CommentViewModel: ObservableObject {
         }
     }
     
-    func postComment(_ commentText: String) async {
+    func postComment(_ commentText: String, parentCommentId: UUID? = nil) async {
         guard !commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             print("⚠️ Empty comment text")
             return
@@ -54,7 +54,7 @@ class CommentViewModel: ObservableObject {
         
         do {
             print("🔄 Posting comment: \(commentText)")
-            try await CommentService.shared.postComment(commentText, forPostId: kollaborate.id, userId: userId)
+            try await CommentService.shared.postComment(commentText, forPostId: kollaborate.id, userId: userId, parentCommentId: parentCommentId)
             print("✅ Comment posted successfully")
             
             // Update comment count

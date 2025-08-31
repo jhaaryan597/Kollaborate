@@ -34,7 +34,7 @@ struct ProfileHeaderView: View {
                         .foregroundColor(Color("PrimaryText"))
                 }
                 
-                Text("2 followers")
+                Text("2 connections")
                     .font(.caption)
                     .foregroundColor(Color("SecondaryText"))
             }

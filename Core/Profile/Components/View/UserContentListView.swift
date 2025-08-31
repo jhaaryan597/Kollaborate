@@ -7,7 +7,7 @@ struct UserContentListView: View {
     
     private var filterBarWidth: CGFloat {
         let count = CGFloat(ProfileKollaborateFilter.allCases.count)
-        return UIScreen.main.bounds.width / count - 16
+        return UIScreen.main.bounds.width / count - 20
     }
     
     init(user: User) {
@@ -22,12 +22,11 @@ struct UserContentListView: View {
                         Text(filter.title)
                             .font(.subheadline)
                             .fontWeight(selectedFilter == filter ? .semibold : .regular)
-                            .foregroundColor(selectedFilter == filter ? Color("PrimaryText") : Color("SecondaryText"))
                         
                         if selectedFilter == filter {
                             Rectangle()
                                 .foregroundColor(Color("AccentColor"))
-                                .frame(width: filterBarWidth, height: 2)
+                                .frame(width: filterBarWidth, height: 1)
                                 .matchedGeometryEffect(id: "item", in: animation)
                         } else {
                             Rectangle()

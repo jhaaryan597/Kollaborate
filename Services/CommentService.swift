@@ -19,15 +19,41 @@ class CommentService {
             .from("post_comments")
             .select("*, users(*)")
             .eq("post_id", value: postId)
+            .is("parent_comment_id", value: nil)
             .order("created_at", ascending: false)
             .execute()
             .value
         
-        print("✅ Fetched \(comments.count) comments successfully")
-        return comments
+        print("✅ Fetched \(comments.count) top-level comments successfully")
+        
+        var threadedComments = [Comment]()
+        for var comment in comments {
+            comment.replies = try await fetchReplies(forCommentId: comment.id)
+            threadedComments.append(comment)
+        }
+        
+        return threadedComments
     }
     
-    func postComment(_ commentText: String, forPostId postId: String, userId: String) async throws {
+    private func fetchReplies(forCommentId commentId: UUID) async throws -> [Comment] {
+        let replies: [Comment] = try await client
+            .from("post_comments")
+            .select("*, users(*)")
+            .eq("parent_comment_id", value: commentId)
+            .order("created_at", ascending: true)
+            .execute()
+            .value
+        
+        var threadedReplies = [Comment]()
+        for var reply in replies {
+            reply.replies = try await fetchReplies(forCommentId: reply.id)
+            threadedReplies.append(reply)
+        }
+        
+        return threadedReplies
+    }
+    
+    func postComment(_ commentText: String, forPostId postId: String, userId: String, parentCommentId: UUID? = nil) async throws {
         print("📝 Posting comment: '\(commentText)' for post: \(postId)")
         
         guard let userUUID = UUID(uuidString: userId) else {
@@ -35,11 +61,12 @@ class CommentService {
         }
         
         let comment = Comment(
-            id: UUID(), 
-            postId: postId, 
-            userId: userUUID, 
-            commentText: commentText, 
-            createdAt: Date()
+            id: UUID(),
+            postId: postId,
+            userId: userUUID,
+            commentText: commentText,
+            createdAt: Date(),
+            parentCommentId: parentCommentId
         )
         
         print("🌐 Inserting comment into database...")

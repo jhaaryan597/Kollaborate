@@ -12,7 +12,7 @@ struct ProfileView: View {
                 Button {
                     
                 } label: {
-                    Text("Follow")
+                    Text("Connect")
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .foregroundColor(Color("PrimaryText"))
