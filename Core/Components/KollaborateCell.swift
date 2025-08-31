@@ -72,7 +72,7 @@ struct KollaborateCell: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) { // Reduced spacing
             // User Info
             HStack(alignment: .top, spacing: 12) {
                 CircularProfileImageView(user: viewModel.kollaborate.user, size: .small)
@@ -158,9 +158,9 @@ struct KollaborateCell: View {
                         .foregroundColor(Color("SecondaryText"))
                 }
             }
-            .padding(.top, 8)
+            .padding(.top, 4) // Reduced padding
         }
-        .padding()
+        .padding(12) // Reduced padding
         .background(Color("SurfaceHighlight"))
         .cornerRadius(12)
         .overlay(

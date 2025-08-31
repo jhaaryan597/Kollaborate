@@ -31,6 +31,12 @@ struct TaskManagementView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.horizontal)
                     
+                    if let errorMessage = viewModel.errorMessage {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                            .padding()
+                    }
+                    
                     // Task List
                     if viewModel.isLoading {
                         Spacer()

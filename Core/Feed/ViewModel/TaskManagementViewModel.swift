@@ -32,7 +32,7 @@ class TaskManagementViewModel: ObservableObject {
         errorMessage = nil
         
         do {
-            tasks = try await TaskService.fetchUserTasks(uid: uid)
+            tasks = try await TaskService.shared.fetchUserTasks(uid: uid)
             applyFilter(.all)
         } catch {
             errorMessage = "Failed to load tasks: \(error.localizedDescription)"
@@ -43,8 +43,7 @@ class TaskManagementViewModel: ObservableObject {
     
     func addTask(_ task: TaskItem) async {
         do {
-            try await TaskService.createTask(task)
-            await loadTasks()
+            try await TaskService.shared.createTask(task)
         } catch {
             errorMessage = "Failed to create task: \(error.localizedDescription)"
         }
@@ -52,8 +51,7 @@ class TaskManagementViewModel: ObservableObject {
     
     func updateTask(_ task: TaskItem) async {
         do {
-            try await TaskService.updateTask(task)
-            await loadTasks()
+            try await TaskService.shared.updateTask(task)
         } catch {
             errorMessage = "Failed to update task: \(error.localizedDescription)"
         }
@@ -61,8 +59,7 @@ class TaskManagementViewModel: ObservableObject {
     
     func deleteTask(_ task: TaskItem) async {
         do {
-            try await TaskService.deleteTask(taskId: task.id)
-            await loadTasks()
+            try await TaskService.shared.deleteTask(taskId: task.id)
         } catch {
             errorMessage = "Failed to delete task: \(error.localizedDescription)"
         }
@@ -70,8 +67,7 @@ class TaskManagementViewModel: ObservableObject {
     
     func toggleTaskCompletion(_ task: TaskItem) async {
         do {
-            try await TaskService.toggleTaskCompletion(taskId: task.id, isCompleted: !task.isCompleted)
-            await loadTasks()
+            try await TaskService.shared.toggleTaskCompletion(taskId: task.id, isCompleted: !task.isCompleted)
         } catch {
             errorMessage = "Failed to update task: \(error.localizedDescription)"
         }
