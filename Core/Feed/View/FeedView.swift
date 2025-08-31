@@ -28,11 +28,17 @@ struct FeedView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         } else {
                             // Header for populated feed
-                            Text("Feed")
-                                .font(.system(size: 32, weight: .bold))
-                                .foregroundColor(Color("PrimaryText"))
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .center)
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text("Community Feed")
+                                    .font(.system(size: 32, weight: .bold))
+                                    .foregroundColor(Color("PrimaryText"))
+                                
+                                Text("Queries • Doubts • Announcements")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(Color("SecondaryText"))
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             
                             // Kollaborate Cells
                             LazyVStack(spacing: 16) {
