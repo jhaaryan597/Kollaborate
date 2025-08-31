@@ -31,8 +31,7 @@ struct KollaborateTabView: View {
             
             TaskManagementView()
                 .tabItem {
-                    Image(systemName: selectedTab == 3 ? "checklist.fill" : "checklist")
-                        .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
+                    Image(systemName: "checklist")
                 }
                 .onAppear { selectedTab = 3 }
                 .tag(3)
