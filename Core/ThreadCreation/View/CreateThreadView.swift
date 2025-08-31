@@ -43,7 +43,7 @@ struct CreateThreadView: View {
                 
                 Picker("Thread Type", selection: $threadType) {
                     ForEach(ThreadType.allCases, id: \.self) { type in
-                        Text(type.rawValue.capitalized).tag(type)
+                        Text(type.displayName).tag(type)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())

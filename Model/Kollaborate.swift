@@ -4,6 +4,17 @@ public enum ThreadType: String, Codable, CaseIterable {
     case standard
     case event
     case projectUpdate
+    
+    var displayName: String {
+        switch self {
+        case .standard:
+            return "Standard"
+        case .event:
+            return "Event"
+        case .projectUpdate:
+            return "Project Update"
+        }
+    }
 }
 
 public struct Kollaborate: Identifiable, Codable, Hashable {

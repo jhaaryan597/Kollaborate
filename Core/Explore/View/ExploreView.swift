@@ -19,7 +19,7 @@ struct ExploreView: View {
                                 .font(.system(size: 32, weight: .bold))
                                 .foregroundColor(Color("PrimaryText"))
                             
-                            Text("Find new people and projects to collaborate with.")
+                            Text("Connect with professionals and explore new opportunities")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color("SecondaryText"))
                         }

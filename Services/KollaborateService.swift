@@ -98,4 +98,12 @@ public struct KollaborateService {
             
         return kollaborates
     }
+    
+    public func deleteKollaborate(_ kollaborate: Kollaborate) async throws {
+        try await supabase.database
+            .from("kollaborates")
+            .delete()
+            .eq("id", value: kollaborate.id)
+            .execute()
+    }
 }

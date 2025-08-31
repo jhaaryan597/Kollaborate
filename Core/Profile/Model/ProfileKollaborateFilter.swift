@@ -7,7 +7,7 @@ enum ProfileKollaborateFilter: Int, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .kollaborates: return "Kollaborates"
-        case .replies: return "Replies"
+        case .replies: return "Responses"
         }
     }
     

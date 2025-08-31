@@ -5,15 +5,12 @@ import Combine
 @MainActor
 class KollaborateCellViewModel: ObservableObject {
     @Published var kollaborate: Kollaborate
-    @Published var didRepost: Bool = false
-    @Published var showRepostSheet = false
     @Published var showShareSheet = false
     
     init(kollaborate: Kollaborate) {
         self.kollaborate = kollaborate
         Task { 
             try await checkIfUserLikedKollaborate()
-            try await checkIfUserReposted()
         }
     }
     
@@ -33,39 +30,18 @@ class KollaborateCellViewModel: ObservableObject {
         self.kollaborate.didLike = try await KollaborateService.checkIfUserLikedKollaborate(kollaborate)
     }
     
-    func checkIfUserReposted() async throws {
-        self.didRepost = try await RepostService.checkIfUserReposted(kollaborate)
-    }
-    
-    func repost() async throws {
-        guard let uid = AuthService.shared.currentUser?.id else { return }
-        
-        let repost = Repost(
-            id: UUID().uuidString,
-            originalPostId: kollaborate.id,
-            repostedByUserId: uid
-        )
-        
-        try await RepostService.createRepost(repost)
-        self.didRepost = true
-    }
-    
-    func unrepost() async throws {
-        // Find the repost and delete it
-        let reposts = try await RepostService.fetchUserReposts(userId: AuthService.shared.currentUser?.id ?? "")
-        if let repost = reposts.first(where: { $0.originalPostId == kollaborate.id }) {
-            try await RepostService.deleteRepost(repostId: repost.id, originalPostId: kollaborate.id)
-            self.didRepost = false
-        }
-    }
-    
     func share() {
         showShareSheet = true
+    }
+    
+    func deletePost() async throws {
+        try await KollaborateService.shared.deleteKollaborate(kollaborate)
     }
 }
 
 struct KollaborateCell: View {
     @StateObject var viewModel: KollaborateCellViewModel
+    @State private var showDeleteConfirmation = false
     
     init(kollaborate: Kollaborate) {
         self._viewModel = StateObject(wrappedValue: KollaborateCellViewModel(kollaborate: kollaborate))
@@ -89,76 +65,53 @@ struct KollaborateCell: View {
                 
                 Spacer()
                 
-                Button {
-                    // More options
+                Menu {
+                    Button(role: .destructive) {
+                        showDeleteConfirmation = true
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(Color("SecondaryText"))
                 }
             }
             
-            // Caption
-            Text(viewModel.kollaborate.caption)
-                .font(.system(size: 14))
-                .foregroundColor(Color("PrimaryText"))
-                .multilineTextAlignment(.leading)
-            
-            // Action Buttons
-            HStack(spacing: 24) {
-                Button {
-                    Task {
-                        if viewModel.kollaborate.didLike == true {
-                            try await viewModel.unlike()
-                        } else {
-                            try await viewModel.like()
+            // Caption and Action Buttons
+            HStack(alignment: .bottom) {
+                Text(viewModel.kollaborate.caption)
+                    .font(.system(size: 14))
+                    .foregroundColor(Color("PrimaryText"))
+                    .multilineTextAlignment(.leading)
+                
+                Spacer()
+                
+                HStack(spacing: 16) {
+                    Button {
+                        Task {
+                            if viewModel.kollaborate.didLike == true {
+                                try await viewModel.unlike()
+                            } else {
+                                try await viewModel.like()
+                            }
                         }
+                    } label: {
+                        Image(systemName: viewModel.kollaborate.didLike == true ? "heart.fill" : "heart")
+                            .foregroundColor(viewModel.kollaborate.didLike == true ? .red : Color("SecondaryText"))
                     }
-                } label: {
-                    Image(systemName: viewModel.kollaborate.didLike == true ? "heart.fill" : "heart")
-                        .foregroundColor(viewModel.kollaborate.didLike == true ? .red : Color("SecondaryText"))
-                }
-                
-                NavigationLink(destination: CommentView(kollaborate: viewModel.kollaborate)) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "bubble.right")
-                            .foregroundColor(Color("SecondaryText"))
-                        
-                        Text("\(viewModel.kollaborate.commentsCount ?? 0)")
-                            .font(.caption)
-                            .foregroundColor(Color("SecondaryText"))
-                    }
-                }
-                
-                HStack(spacing: 4) {
-                    Image(systemName: viewModel.didRepost ? "arrow.rectanglepath.fill" : "arrow.rectanglepath")
-                        .foregroundColor(viewModel.didRepost ? .green : Color("SecondaryText"))
                     
-                    Text("\(viewModel.kollaborate.repostsCount ?? 0)")
-                        .font(.caption)
-                        .foregroundColor(Color("SecondaryText"))
-                }
-                
-                Button {
-                    Task {
-                        if viewModel.didRepost {
-                            try await viewModel.unrepost()
-                        } else {
-                            try await viewModel.repost()
+                    NavigationLink(destination: CommentView(kollaborate: viewModel.kollaborate)) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "bubble.right")
+                                .foregroundColor(Color("SecondaryText"))
+                            
+                            Text("\(viewModel.kollaborate.commentsCount ?? 0)")
+                                .font(.caption)
+                                .foregroundColor(Color("SecondaryText"))
                         }
                     }
-                } label: {
-                    Image(systemName: viewModel.didRepost ? "arrow.rectanglepath.fill" : "arrow.rectanglepath")
-                        .foregroundColor(viewModel.didRepost ? .green : Color("SecondaryText"))
-                }
-                
-                Button {
-                    viewModel.share()
-                } label: {
-                    Image(systemName: "paperplane")
-                        .foregroundColor(Color("SecondaryText"))
                 }
             }
-            .padding(.top, 4) // Reduced padding
         }
         .padding(12) // Reduced padding
         .background(Color("SurfaceHighlight"))
@@ -169,6 +122,15 @@ struct KollaborateCell: View {
         )
         .sheet(isPresented: $viewModel.showShareSheet) {
             ShareSheet(activityItems: [viewModel.kollaborate.caption])
+        }
+        .alert("Delete Post", isPresented: $showDeleteConfirmation) {
+            Button("Delete", role: .destructive) {
+                Task {
+                    try await viewModel.deletePost()
+                }
+            }
+        } message: {
+            Text("Are you sure you want to delete this post? This action cannot be undone.")
         }
     }
 }

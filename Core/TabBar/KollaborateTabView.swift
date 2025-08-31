@@ -53,7 +53,7 @@ struct KollaborateTabView: View {
             get: { selectedTab == 2 },
             set: { if !$0 { selectedTab = 0 } }
         )) {
-            Button("New Thread") {
+            Button("New Discussion") {
                 showCreateThreadView.toggle()
             }
             Button("New Task") {

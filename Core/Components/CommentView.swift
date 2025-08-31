@@ -11,7 +11,7 @@ struct CommentView: View {
     
     var body: some View {
         VStack {
-            Text("Comments")
+            Text("Responses")
                 .font(.title)
                 .fontWeight(.bold)
             
@@ -20,13 +20,13 @@ struct CommentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 12) {
+                    LazyVStack(spacing: 8) {
                         ForEach(viewModel.comments) { comment in
                             CommentRowView(comment: comment)
                         }
                         
                         if viewModel.comments.isEmpty && !viewModel.isLoading {
-                            Text("No comments yet")
+                            Text("No responses yet")
                                 .foregroundColor(.gray)
                                 .padding()
                         }
@@ -41,7 +41,9 @@ struct CommentView: View {
             // Comment input section
             HStack {
                 TextField("Add a comment...", text: $commentText)
-                    .modifier(KollaborateTextFieldModifier())
+                    .padding(12)
+                    .background(Color("SurfaceHighlight"))
+                    .cornerRadius(10)
                     .disabled(viewModel.isPostingComment)
                 
                 Button(action: {
@@ -101,7 +103,7 @@ struct CommentRowView: View {
                 .foregroundColor(Color("SecondaryText"))
                 .multilineTextAlignment(.leading)
         }
-        .padding()
+        .padding(12)
         .background(Color("SurfaceHighlight"))
         .cornerRadius(10)
     }
