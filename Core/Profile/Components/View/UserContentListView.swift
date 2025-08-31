@@ -43,8 +43,14 @@ struct UserContentListView: View {
             }
             
             LazyVStack {
-                ForEach(viewModel.kollaborates) { kollaborate in
-                    KollaborateCell(kollaborate: kollaborate)
+                if selectedFilter == .kollaborates {
+                    ForEach(viewModel.kollaborates) { kollaborate in
+                        KollaborateCell(kollaborate: kollaborate)
+                    }
+                } else {
+                    ForEach(viewModel.responses) { kollaborate in
+                        KollaborateCell(kollaborate: kollaborate)
+                    }
                 }
             }
         }

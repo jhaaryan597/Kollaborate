@@ -91,7 +91,7 @@ public struct KollaborateService {
         let kollaborates: [Kollaborate] = try await supabase.database
             .from("kollaborates")
             .select()
-            .eq("ownerUid", value: uid)
+            .eq("owner_uid", value: uid)
             .order("timestamp", ascending: false)
             .execute()
             .value
@@ -105,5 +105,26 @@ public struct KollaborateService {
             .delete()
             .eq("id", value: kollaborate.id)
             .execute()
+    }
+    
+    public static func fetchUserResponses(uid: String) async throws -> [Kollaborate] {
+        let postIds: [[String: String]] = try await supabase.database
+            .from("post_comments")
+            .select("post_id")
+            .eq("user_id", value: uid)
+            .execute()
+            .value
+        
+        let ids = postIds.map { $0["post_id"]! }
+        
+        let kollaborates: [Kollaborate] = try await supabase.database
+            .from("kollaborates")
+            .select()
+            .in("id", value: ids)
+            .order("timestamp", ascending: false)
+            .execute()
+            .value
+            
+        return kollaborates
     }
 }
