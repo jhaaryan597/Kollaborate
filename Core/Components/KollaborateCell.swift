@@ -178,5 +178,3 @@ struct KollaborateCell_Previews: PreviewProvider {
         KollaborateCell(kollaborate: dev.kollaborate)
     }
 }
-
-

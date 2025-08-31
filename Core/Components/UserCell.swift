@@ -25,22 +25,18 @@ struct UserCell: View {
             Button(action: {
                 // Follow user
             }) {
-                Text("Follow")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 8)
-                    .background(Color("AccentColor"))
-                    .cornerRadius(8)
+                Text("Connect")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("PrimaryText"))
+                    .frame(width: 100, height: 32)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color("PrimaryText"), lineWidth: 1)
+                    }
             }
         }
-        .padding()
-        .background(Color("SurfaceHighlight"))
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-        )
+        .padding(.horizontal)
     }
 }
 

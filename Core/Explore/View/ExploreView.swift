@@ -44,7 +44,6 @@ struct ExploreView: View {
                             ForEach(viewModel.users) { user in
                                 NavigationLink(value: user) {
                                     UserCell(user: user)
-                                        .padding(.vertical, 8)
                                 }
                             }
                         }
