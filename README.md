@@ -4,7 +4,7 @@
 ![Made With](https://img.shields.io/badge/Made%20With-SwiftUI-blue?logo=swift)  
 ![iOS](https://img.shields.io/badge/iOS-16%2B-lightgrey?logo=apple)  
 ![Supabase](https://img.shields.io/badge/Backend-Supabase-3ECF8E?logo=supabase)  
-![Database](https://img.shields.io/badge/Database-Postgres-336791?logo=postgresql)  
+ 
 
 **A modern iOS app for collaboration, discussions, and project management.**  
 Built with **SwiftUI** and powered by **Supabase**, Kollaborate provides a space where users can share updates, explore projects, manage tasks, and connect with peers.  
