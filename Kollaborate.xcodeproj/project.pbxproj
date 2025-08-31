@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,21 @@
 		4159907C2E431F1100F3FC51 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 4159907B2E431F1100F3FC51 /* Storage */; };
 		4159907E2E431F1100F3FC51 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 4159907D2E431F1100F3FC51 /* Supabase */; };
 		415990812E431F2E00F3FC51 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 415990802E431F2E00F3FC51 /* Kingfisher */; };
+		418A782B2E6464750083E133 /* TaskManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A782A2E6464750083E133 /* TaskManagementView.swift */; };
+		418A782D2E64649C0083E133 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A782C2E64649C0083E133 /* Task.swift */; };
+		418A782F2E6464B20083E133 /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A782E2E6464B20083E133 /* TaskService.swift */; };
+		418A78312E6464BF0083E133 /* TaskManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78302E6464BF0083E133 /* TaskManagementViewModel.swift */; };
+		418A78342E6464D40083E133 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78332E6464D40083E133 /* TaskRowView.swift */; };
+		418A78352E6464D40083E133 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78322E6464D40083E133 /* TaskDetailView.swift */; };
+		418A78372E6464E10083E133 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78362E6464E10083E133 /* AddTaskView.swift */; };
+		418A783B2E6472F90083E133 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78382E6472F90083E133 /* Comment.swift */; };
+		418A783C2E6472F90083E133 /* DirectMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78392E6472F90083E133 /* DirectMessage.swift */; };
+		418A783D2E6472F90083E133 /* Repost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A783A2E6472F90083E133 /* Repost.swift */; };
+		418A78412E6473180083E133 /* DirectMessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A783F2E6473180083E133 /* DirectMessageService.swift */; };
+		418A78422E6473180083E133 /* RepostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78402E6473180083E133 /* RepostService.swift */; };
+		418A78432E6473180083E133 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A783E2E6473180083E133 /* CommentService.swift */; };
+		418A78462E64732B0083E133 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78442E64732B0083E133 /* CommentView.swift */; };
+		418A78472E64732B0083E133 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A78452E64732B0083E133 /* ShareSheet.swift */; };
 		41C11FF92E47824D003C0374 /* DocumentUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FF82E47824D003C0374 /* DocumentUploader.swift */; };
 		41C11FFB2E4783B9003C0374 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FFA2E4783B9003C0374 /* Channel.swift */; };
 		41C11FFD2E478404003C0374 /* ChannelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C11FFC2E478404003C0374 /* ChannelService.swift */; };
@@ -59,6 +74,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		418A782A2E6464750083E133 /* TaskManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagementView.swift; sourceTree = "<group>"; };
+		418A782C2E64649C0083E133 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		418A782E2E6464B20083E133 /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
+		418A78302E6464BF0083E133 /* TaskManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagementViewModel.swift; sourceTree = "<group>"; };
+		418A78322E6464D40083E133 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		418A78332E6464D40083E133 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
+		418A78362E6464E10083E133 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		418A78382E6472F90083E133 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		418A78392E6472F90083E133 /* DirectMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMessage.swift; sourceTree = "<group>"; };
+		418A783A2E6472F90083E133 /* Repost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repost.swift; sourceTree = "<group>"; };
+		418A783E2E6473180083E133 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
+		418A783F2E6473180083E133 /* DirectMessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMessageService.swift; sourceTree = "<group>"; };
+		418A78402E6473180083E133 /* RepostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepostService.swift; sourceTree = "<group>"; };
+		418A78442E64732B0083E133 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		418A78452E64732B0083E133 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		41C11FF82E47824D003C0374 /* DocumentUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUploader.swift; sourceTree = "<group>"; };
 		41C11FFA2E4783B9003C0374 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		41C11FFC2E478404003C0374 /* ChannelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelService.swift; sourceTree = "<group>"; };
@@ -104,10 +134,6 @@
 		EAFA39DD2AA82A8B008611F0 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		EAFAB89F2AA816A6008611E9 /* KollaborateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KollaborateService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		41C11FFE2E47843D003C0374 /* Channels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Channels; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		EAFA394A2AA4184C008611E9 /* Frameworks */ = {
@@ -176,6 +202,10 @@
 		EAFA395F2AA418C4008611E9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				418A783E2E6473180083E133 /* CommentService.swift */,
+				418A783F2E6473180083E133 /* DirectMessageService.swift */,
+				418A78402E6473180083E133 /* RepostService.swift */,
+				418A782E2E6464B20083E133 /* TaskService.swift */,
 				EAFAB89F2AA816A6008611E9 /* KollaborateService.swift */,
 				EAFA39DB2AA82A8B008611E9 /* Supabase.swift */,
 				EAFA39AE2AA55A0D008611E9 /* UserService.swift */,
@@ -189,6 +219,10 @@
 		EAFA39602AA418CE008611E9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				418A78382E6472F90083E133 /* Comment.swift */,
+				418A78392E6472F90083E133 /* DirectMessage.swift */,
+				418A783A2E6472F90083E133 /* Repost.swift */,
+				418A782C2E64649C0083E133 /* Task.swift */,
 				EAFA39AC2AA55749008611E9 /* User.swift */,
 				EAFA39CA2AA81591008611E9 /* Kollaborate.swift */,
 				41C11FFA2E4783B9003C0374 /* Channel.swift */,
@@ -208,7 +242,6 @@
 		EAFA39632AA418DA008611E9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				41C11FFE2E47843D003C0374 /* Channels */,
 				EAFA397F2AA44793008611E9 /* Activity */,
 				EAFA39652AA41977008611E9 /* Authentication */,
 				EAFA39892AA4FF71008611E9 /* Components */,
@@ -286,6 +319,7 @@
 		EAFA39742AA44641008611E9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				418A782A2E6464750083E133 /* TaskManagementView.swift */,
 				EAFA39752AA44654008611E9 /* FeedView.swift */,
 			);
 			path = View;
@@ -320,6 +354,7 @@
 		EAFA397C2AA4472F008611E9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				418A78362E6464E10083E133 /* AddTaskView.swift */,
 				EAFA397D2AA44754008611E9 /* CreateThreadView.swift */,
 			);
 			path = View;
@@ -364,6 +399,10 @@
 		EAFA39892AA4FF71008611E9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				418A78442E64732B0083E133 /* CommentView.swift */,
+				418A78452E64732B0083E133 /* ShareSheet.swift */,
+				418A78322E6464D40083E133 /* TaskDetailView.swift */,
+				418A78332E6464D40083E133 /* TaskRowView.swift */,
 				EAFA398A2AA4FF9F008611E9 /* CircularProfileImageView.swift */,
 				EAFA39872AA4F077008611E9 /* KollaborateCell.swift */,
 				EAFA398C2AA5003B008611E9 /* UserCell.swift */,
@@ -491,6 +530,7 @@
 		EAFA39D12AA81D01008611E9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				418A78302E6464BF0083E133 /* TaskManagementViewModel.swift */,
 				EAFA39D22AA81D0F008611E9 /* FeedViewModel.swift */,
 			);
 			path = ViewModel;
@@ -527,9 +567,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				41C11FFE2E47843D003C0374 /* Channels */,
 			);
 			name = Kollaborate;
 			packageProductDependencies = (
@@ -598,13 +635,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				418A782F2E6464B20083E133 /* TaskService.swift in Sources */,
+				418A782B2E6464750083E133 /* TaskManagementView.swift in Sources */,
 				EAFA39762AA44654008611E9 /* FeedView.swift in Sources */,
+				418A78372E6464E10083E133 /* AddTaskView.swift in Sources */,
 				EAFA39CB2AA81591008611E9 /* Kollaborate.swift in Sources */,
 				EAFA39A32AA53946008611E9 /* RegistrationViewModel.swift in Sources */,
 				EAFA39692AA419DF008611E9 /* LoginView.swift in Sources */,
 				EAFA39A52AA53B1D008611E9 /* AuthService.swift in Sources */,
+				418A783B2E6472F90083E133 /* Comment.swift in Sources */,
+				418A783C2E6472F90083E133 /* DirectMessage.swift in Sources */,
+				418A783D2E6472F90083E133 /* Repost.swift in Sources */,
 				EAFA39B72AA56E84008611E9 /* PreviewProvider.swift in Sources */,
 				EAFA39C42AA802FF008611E9 /* EditProfileViewModel.swift in Sources */,
+				418A78412E6473180083E133 /* DirectMessageService.swift in Sources */,
+				418A78422E6473180083E133 /* RepostService.swift in Sources */,
+				418A78432E6473180083E133 /* CommentService.swift in Sources */,
 				EAFA39942AA51C01008611E9 /* EditProfileView.swift in Sources */,
 				EAFA39532AA4184C008611E9 /* ContentView.swift in Sources */,
 				41C11FFD2E478404003C0374 /* ChannelService.swift in Sources */,
@@ -624,6 +670,7 @@
 				EAFA39D32AA81D0F008611E9 /* FeedViewModel.swift in Sources */,
 				EAFA397E2AA44754008611E9 /* CreateThreadView.swift in Sources */,
 				EAFA39C62AA8051D008611E9 /* ImageUploader.swift in Sources */,
+				418A78312E6464BF0083E133 /* TaskManagementViewModel.swift in Sources */,
 				EAFA39902AA5051C008611E9 /* ProfileKollaborateFilter.swift in Sources */,
 				EAFA39A92AA5493E008611E9 /* ContentViewModel.swift in Sources */,
 				EAFA39B22AA55C99008611E9 /* CurrentUserProfileViewModel.swift in Sources */,
@@ -633,10 +680,15 @@
 				EAFA39512AA4184C008611E9 /* KollaborateApp.swift in Sources */,
 				EAFA39BF2AA7F561008611E9 /* ProfileHeaderView.swift in Sources */,
 				EAFA397A2AA446D4008611E9 /* ExploreView.swift in Sources */,
+				418A78342E6464D40083E133 /* TaskRowView.swift in Sources */,
+				418A78352E6464D40083E133 /* TaskDetailView.swift in Sources */,
+				418A78462E64732B0083E133 /* CommentView.swift in Sources */,
+				418A78472E64732B0083E133 /* ShareSheet.swift in Sources */,
 				EAFA39862AA447DC008611E9 /* ProfileView.swift in Sources */,
 				EAFA396B2AA42E27008611E9 /* RegistrationView.swift in Sources */,
 				EAFA39AD2AA55749008611E9 /* User.swift in Sources */,
 				EAFA39DC2AA82A8B008611E9 /* Supabase.swift in Sources */,
+				418A782D2E64649C0083E133 /* Task.swift in Sources */,
 				41C11FF92E47824D003C0374 /* DocumentUploader.swift in Sources */,
 				EAFA39DE2AA82A8B008611F0 /* Date.swift in Sources */,
 			);

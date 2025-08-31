@@ -28,6 +28,14 @@ struct KollaborateTabView: View {
                 .onAppear { selectedTab = 2 }
                 .tag(2)
             
+            TaskManagementView()
+                .tabItem {
+                    Image(systemName: selectedTab == 3 ? "checklist.fill" : "checklist")
+                        .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
+                }
+                .onAppear { selectedTab = 3 }
+                .tag(3)
+            
             CurrentUserProfileView()
                 .tabItem {
                     Image(systemName: selectedTab == 4 ? "person.fill" : "person")
