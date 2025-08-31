@@ -88,10 +88,11 @@ struct CommentRowView: View {
     let comment: Comment
     @ObservedObject var viewModel: CommentViewModel
     @State private var showReplyField = false
+    @State private var showReplies = false
     @State private var replyText = ""
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Text(comment.user?.username ?? "Anonymous")
                     .fontWeight(.semibold)
@@ -106,12 +107,24 @@ struct CommentRowView: View {
                 .foregroundColor(Color("SecondaryText"))
                 .multilineTextAlignment(.leading)
             
-            Button(action: {
-                showReplyField.toggle()
-            }) {
-                Text("Reply")
-                    .font(.caption)
-                    .foregroundColor(Color("AccentColor"))
+            HStack(spacing: 16) {
+                Button(action: {
+                    showReplyField.toggle()
+                }) {
+                    Text("Reply")
+                        .font(.caption)
+                        .foregroundColor(Color("AccentColor"))
+                }
+                
+                if let replies = comment.replies, !replies.isEmpty {
+                    Button(action: {
+                        showReplies.toggle()
+                    }) {
+                        Text(showReplies ? "Hide Replies" : "View Replies (\(replies.count))")
+                            .font(.caption)
+                            .foregroundColor(Color("AccentColor"))
+                    }
+                }
             }
             
             if showReplyField {
@@ -134,14 +147,20 @@ struct CommentRowView: View {
                 }
             }
             
-            if let replies = comment.replies {
+            if showReplies, let replies = comment.replies {
                 ForEach(replies) { reply in
-                    CommentRowView(comment: reply, viewModel: viewModel)
-                        .padding(.leading, 20)
+                    HStack {
+                        Rectangle()
+                            .fill(Color("AccentColor"))
+                            .frame(width: 2)
+                        
+                        CommentRowView(comment: reply, viewModel: viewModel)
+                    }
+                    .padding(.leading, 20)
                 }
             }
         }
-        .padding(12)
+        .padding(8)
         .background(Color("SurfaceHighlight"))
         .cornerRadius(10)
     }

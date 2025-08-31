@@ -12,8 +12,47 @@ struct CurrentUserProfileView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
+                    // Header
+                    VStack {
+                        // Profile Image
+                        CircularProfileImageView(user: currentUser, size: .large)
+                        
+                        // User Info
+                        VStack(spacing: 8) {
+                            Text(currentUser?.fullname ?? "")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(Color("PrimaryText"))
+                            
+                            Text("@\(currentUser?.username ?? "")")
+                                .font(.system(size: 14))
+                                .foregroundColor(Color("SecondaryText"))
+                        }
+                        
+                        // Edit Profile Button
+                        Button {
+                            showEditProfile.toggle()
+                        } label: {
+                            Text("Edit Profile")
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundColor(Color("PrimaryBackground"))
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 8)
+                                .background(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color("AccentColor"), Color("SecondaryAccent")]),
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                                .cornerRadius(8)
+                        }
+                        .padding(.top)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
+                    .padding()
                     if let user = currentUser {
-                        ProfileHeaderView(user: user)
                         UserContentListView(user: user)
                     }
                 }
