@@ -1,41 +1,93 @@
-# 🤝 Kollaborate  
+# 🤝 Kollaborate
 
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)  ![Made With](https://img.shields.io/badge/Made%20With-SwiftUI-blue?logo=swift)  ![iOS](https://img.shields.io/badge/iOS-16%2B-lightgrey?logo=apple)  ![Supabase](https://img.shields.io/badge/Backend-Supabase-3ECF8E?logo=supabase)  ![Database](https://img.shields.io/badge/Database-Postgres-336791?logo=postgresql) 
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Made With](https://img.shields.io/badge/Made%20With-SwiftUI-blue?logo=swift)
+![iOS](https://img.shields.io/badge/iOS-16%2B-lightgrey?logo=apple)
+![Supabase](https://img.shields.io/badge/Backend-Supabase-3ECF8E?logo=supabase)
+![Database](https://img.shields.io/badge/Database-Postgres-336791?logo=postgresql)
 
-**A modern iOS app for collaboration, discussions, and project management.**  
-Built with **SwiftUI** and powered by **Supabase**, Kollaborate provides a space where users can share updates, explore projects, manage tasks, and connect with peers.  
-
----
-
-## 📖 Project Overview  
-
-Kollaborate is designed for **professionals, students, and teams** who want a single platform for:  
-- Posting **discussions & announcements**  
-- Exploring **new people & projects**  
-- Managing and tracking **tasks**  
-- Building and maintaining **profiles**  
-
-✨ Think of it as a **hybrid between a social feed and a project management tool**.  
+**A modern iOS app for team collaboration, project management, and real-time communication.**  
+Built with **SwiftUI** and powered by **Supabase**, Kollaborate enables users to manage projects, track tasks, and communicate seamlessly with their teams.
 
 ---
 
-## 🛠 Core Technologies  
+## 📖 Project Overview
 
-- **Framework:** [SwiftUI](https://developer.apple.com/xcode/swiftui/) (declarative UI)  
-- **Backend:** [Supabase](https://supabase.com/)  
-  - 🔑 Authentication → Secure login & registration  
-  - 📂 Database → Threads, tasks, and user data  
-  - 📦 Storage → User profile images & media  
-- **Database:** PostgreSQL (via Supabase)  
-- **Image Loading & Caching:** [Kingfisher](https://github.com/onevcat/Kingfisher)  
-- **Concurrency:** Swift Concurrency + [Point-Free libraries](https://github.com/pointfreeco)  
-- **Security:** [swift-crypto](https://github.com/apple/swift-crypto)  
+Kollaborate is designed for **professionals, students, and teams** seeking a unified collaboration platform.  
+Users can post discussions, explore projects, manage tasks, share files, and maintain profiles—all in one place.
+
+✨ Think of it as a **hybrid between a social feed and a project management tool**, providing:
+
+- **Real-time collaboration** via channels, direct messages, and threaded comments  
+- **Task & project management** with assignments, due dates, and status tracking  
+- **File sharing** for documents and images  
+- **User profiles** displaying activity, projects, and contributions  
 
 ---
 
-## 📸 Screenshots  
+## ✨ Core Features
 
-**Actual app looks even better in action!** 😍  
+### 👤 Authentication
+- Secure login/signup with **email/password**  
+- **Google Sign-In** support  
+- Backend handled by **Supabase Auth**
+
+### 📰 Feed
+- Centralized feed showing **activities, updates, and discussions** across projects
+
+### 📋 Task Management
+- Create, assign, and track tasks  
+- Each task supports **title, description, due date, and assignee**
+
+### 🏗️ Project Collaboration
+- Create projects and **invite team members**  
+- Manage project-specific **tasks and files**
+
+### 📂 File Sharing
+- Upload and share **documents & images** within projects
+
+### 👤 User Profiles
+- View detailed user activity, contributions, and project involvement
+
+### 💬 Real-time Communication
+- **Channels:** Public & private discussions  
+- **Direct Messages:** One-on-one or group messaging  
+- **Comments:** Threaded on tasks and discussions  
+
+### 🔍 Explore
+- Discover **public projects and discussions** within the community  
+
+---
+
+## 🏗️ Architecture
+
+Kollaborate is built using **MVVM** (Model-View-ViewModel) and a **service-oriented architecture**:
+
+- **Model:** Core data structures (User, Project, Task, File, Channel, DirectMessage, Comment, Repost)  
+- **View:** SwiftUI components forming the UI  
+- **ViewModel:** Handles business logic and prepares data for views  
+- **Services Layer:** Handles all interactions with Supabase (AuthService, UserService, ProjectService, TaskService, FileService, ChannelService, DirectMessageService, CommentService)  
+
+---
+
+## 🛠 Key Technologies
+
+| Component       | Technology |
+|-----------------|------------|
+| **Frontend**    | SwiftUI |
+| **Backend**     | Supabase |
+| **Database**    | PostgreSQL |
+| **Real-time**   | Supabase Realtime |
+| **Image Caching** | Kingfisher |
+| **Payments** (if needed) | Razorpay |
+| **Concurrency** | Swift Concurrency + Point-Free libraries |
+| **Security**    | swift-crypto |
+
+---
+
+## 📸 Screenshots
+
+**Experience the app in action!** 😍  
 
 <p align="center">
   <img src="AssetIMG/ss1.png" width="250"/>
@@ -54,41 +106,30 @@ Kollaborate is designed for **professionals, students, and teams** who want a si
 
 ---
 
-## ✨ Features  
+## 🔄 Application Flow
 
-- 📰 **Feed** → Discussions, updates & announcements  
-- 🔍 **Explore** → Discover projects & collaborators  
-- 📋 **Task Management** → Create, assign, and track tasks  
-- ✍️ **Content Creation** → Start threads & add tasks  
-- 👤 **Profiles** → View & edit user profiles  
-- 🎨 **Modern UI** with clean SwiftUI design & animations  
-
----
-
-## 🔄 Application Flow  
-
-- **Splash Screen** → Auth state check  
-- **Login / Signup** → Supabase Auth (email/password)  
-- **Feed Screen** → Central hub for activity  
-- **Explore Screen** → Projects & collaborators  
-- **Task Screen** → Task lists & assignments  
-- **Create Screens** → New discussions & tasks  
-- **Profile Screen** → User info & settings  
+1. **Splash Screen** → Check authentication state  
+2. **Login / Signup** → Supabase Auth  
+3. **Feed Screen** → Central hub for updates and discussions  
+4. **Explore Screen** → Discover projects & collaborators  
+5. **Task Screen** → Manage task lists and assignments  
+6. **Create Screens** → New tasks, discussions, or projects  
+7. **Profile Screen** → View and edit user information  
 
 ---
 
-## 📂 Project Structure  
+## 🚀 Getting Started
 
-- Kollaborate/  
-  ┣ Models/         # Data models (User, Thread, Task)  
-  ┣ Services/       # Supabase API integration  
-  ┣ Views/          # SwiftUI screens  
-  ┣ Components/     # Reusable UI components  
-  ┣ Assets/         # App assets (icons, images)  
+### Requirements
+- Xcode 14+  
+- Apple Developer Account (for physical device)  
+- Supabase account and configured project
 
----
+### Setup Instructions
+```bash
+# Clone the repository
+git clone https://github.com/jhaaryan597/Kollaborate.git
 
-## 💬 Feedback & Contact  
-
-- We’d love your thoughts and feedback!  
-- 📧 aryanjha230705@gmail.com  
+# Open the project in Xcode
+cd Kollaborate
+open Kollaborate.xcodeproj
