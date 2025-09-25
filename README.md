@@ -29,7 +29,6 @@ Users can post discussions, explore projects, manage tasks, share files, and mai
 
 ### 👤 Authentication
 - Secure login/signup with **email/password**  
-- **Google Sign-In** support  
 - Backend handled by **Supabase Auth**
 
 ### 📰 Feed
