@@ -79,9 +79,6 @@ Kollaborate is built using **MVVM** (Model-View-ViewModel) and a **service-orien
 | **Database**    | PostgreSQL |
 | **Real-time**   | Supabase Realtime |
 | **Image Caching** | Kingfisher |
-| **Payments** (if needed) | Razorpay |
-| **Concurrency** | Swift Concurrency + Point-Free libraries |
-| **Security**    | swift-crypto |
 
 ---
 
